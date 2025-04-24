@@ -1,0 +1,79 @@
+# QUERIES
+# get streams of current user
+query listStreams($creatorID: String!) {
+  streams: listStreamConfigurations(filter: { creatorID: { eq: $creatorID } }) {
+    items {
+      ...streamDataSet
+    }
+  }
+}
+
+# MUTATIONS
+# save a generated stream
+mutation generateStream(
+  $creatorID: String
+  $streamID: String!
+  $playbackURL: String
+  $streamKey: String
+  $streamName: String
+  $streamType: String
+  $timestamp: String
+) {
+  stream: createStreamConfigurations(
+    input: {
+      creatorID: $creatorID
+      playbackURL: $playbackURL
+      streamID: $streamID
+      streamKey: $streamKey
+      streamName: $streamName
+      streamType: $streamType
+      timestamp: $timestamp
+    }
+  ) {
+    ...streamDataSet
+  }
+}
+
+# delete a stream by it's id
+mutation deleteStream($streamID: String!) {
+  stream: deleteStreamConfigurations(input: { streamID: $streamID }) {
+    streamID
+    streamName
+  }
+}
+
+# update a stream by it's id
+mutation updateStreamConfigurations(
+  $streamID: String!
+  $eventId: String
+  $venueId: String
+  $stageId: String
+) {
+  stream: updateStreamConfigurations(
+    input: {
+      streamID: $streamID
+      eventId: $eventId
+      venueId: $venueId
+      stageId: $stageId
+    }
+  ) {
+    streamID
+  }
+}
+
+# FRAGMENTS
+fragment streamDataSet on StreamConfigurations {
+  creatorID
+  playbackURL
+  streamID
+  streamKey
+  streamName
+  streamType
+  timestamp
+  isLive
+  event {
+    EventID
+    EventName
+    EventImages
+  }
+}

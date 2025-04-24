@@ -1,0 +1,21 @@
+# deprecated
+# using ownership instead
+query getUserOwnedTickets($UserID: String!) {
+  ticket: listVirtuosoTickets(filter: { UserID: { eq: $UserID } }) {
+    items {
+      TicketID
+      EventID
+      UserID
+      Price
+      Type
+      Event {
+        EventImages
+        EventOwnerID
+        EventDescription
+        EventCreatorID
+        EventName
+        EventDate
+      }
+    }
+  }
+}

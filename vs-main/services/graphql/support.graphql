@@ -1,0 +1,13 @@
+mutation createSupportTicket($input: CreateSupportTicketInput!) {
+  tickets: createSupportTicket(input: $input) {
+    assignedTo
+    createdAt
+    description
+    id
+    priority
+    status
+    title
+    updatedAt
+    userId
+  }
+}

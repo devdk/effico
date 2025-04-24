@@ -1,0 +1,146 @@
+query GetVendorPage($VendorID: String!, $userId: String!) {
+  vendor: getVirtuosoVendors(VendorID: $VendorID) {
+    ...VirtuosoVendorsDetails
+    isFollowedByUser(userId: $userId)
+  }
+}
+
+query listVirtuosoVendors(
+  $filter: TableVirtuosoVendorsFilterInput
+  $nextToken: String = ""
+  $limit: Int = 20
+) {
+  vendors: listVirtuosoVendors(
+    filter: $filter
+    nextToken: $nextToken
+    limit: $limit
+  ) {
+    items {
+      GuestlistID
+      IsRealWorldVendor
+      VendorBio
+      VendorCreatorID
+      VendorID
+      VendorName
+      VendorCover
+      VendorImage
+      VendorOwnerID
+      VendorVisibility
+      followerCount
+      followers {
+        items {
+          pageId
+          pageType
+          userId
+          user {
+            avatar
+            sub
+          }
+        }
+      }
+    }
+    nextToken
+  }
+}
+
+query getVendorProducts($vendorPageId: String!) {
+  listUserAssets(filter: { vendorPageId: { eq: $vendorPageId } }) {
+    items {
+      description
+      image
+      id
+      price
+      productName
+      assetType
+      vendorPageId
+      vendor {
+        VendorID
+        VendorName
+        VendorImage
+      }
+    }
+  }
+}
+
+mutation CreateVendorPage(
+  $VendorName: String
+  $VendorBio: String
+  $VendorOwnerID: String
+  $VendorCreatorID: String
+) {
+  newVendor: createVirtuosoVendors(
+    input: {
+      VendorName: $VendorName
+      VendorBio: $VendorBio
+      VendorOwnerID: $VendorOwnerID
+      VendorCreatorID: $VendorCreatorID
+    }
+  ) {
+    ...VirtuosoVendorsDetails
+  }
+}
+
+# update bio of a vendor page
+mutation updateVendorBio($VendorID: String!, $VendorBio: String) {
+  update: updateVirtuosoVendors(
+    input: { VendorBio: $VendorBio, VendorID: $VendorID }
+  ) {
+    VendorBio
+  }
+}
+
+# update header of a vendor page
+mutation updateVendorHeader(
+  $VendorID: String!
+  $VendorImage: String
+  $VendorCover: String
+  $VendorName: String
+  $VendorBio: String
+) {
+  update: updateVirtuosoVendors(
+    input: {
+      VendorID: $VendorID
+      VendorImage: $VendorImage
+      VendorCover: $VendorCover
+      VendorName: $VendorName
+      VendorBio: $VendorBio
+    }
+  ) {
+    ...VirtuosoVendorsDetails
+  }
+}
+
+# update deactivated status of the venue page - update activeness of venue page
+mutation updateVendorDeactivated($VendorID: String!, $isDeactivated: Boolean) {
+  VirtuosoVendor: updateVirtuosoVendors(
+    input: { VendorID: $VendorID, isDeactivated: $isDeactivated }
+  ) {
+    ...VirtuosoVendorsDetails
+  }
+}
+
+fragment VirtuosoVendorsDetails on VirtuosoVendors {
+  GuestlistID
+  IsRealWorldVendor
+  VendorBio
+  VendorCover
+  VendorID
+  VendorCreatorID
+  VendorImage
+  VendorName
+  VendorOwnerID
+  VendorVisibility
+  followerCount
+  followers {
+    items {
+      pageId
+      pageType
+      userId
+      user {
+        avatar
+        sub
+      }
+    }
+  }
+  isDeactivated
+}

@@ -1,0 +1,30 @@
+query listDirectMessages($dmId: String!, $includeSender: Boolean!) {
+  dms: listDirectMessages(dmId: $dmId) {
+    items {
+      attachments
+      status
+      senderId
+      sender @include(if: $includeSender) {
+        sub
+        avatar
+      }
+      reported
+      receiverId
+      images
+      id
+      dmId
+      reactions
+      createdAt
+      content
+      audio
+    }
+  }
+}
+
+mutation updateDirectMessage($id: ID!, $dmId: String!, $reactions: [String!]) {
+  dm: updateDirectMessage(
+    input: { id: $id, dmId: $dmId, reactions: $reactions }
+  ) {
+    id
+  }
+}

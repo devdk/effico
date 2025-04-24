@@ -1,0 +1,67 @@
+# create friend
+mutation createFriend(
+  $userId: String!
+  $friendId: String!
+  $requestId: String!
+  $notificationId: String!
+) {
+  friend: createFriendsTable(
+    input: {
+      userId: $userId
+      friendId: $friendId
+      requestId: $requestId
+      notificationId: $notificationId
+    }
+  ) {
+    createdAt
+    friendId
+    userId
+  }
+}
+
+# unfriend
+mutation deleteFriend($userId: String!, $friendId: String!) {
+  deletedFriend: deleteFriendsTable(
+    input: { friendId: $userId, userId: $friendId }
+  ) {
+    createdAt
+    friendId
+    userId
+  }
+}
+
+# delete friend request
+mutation rejectFriendRequest($id: ID!, $notificationId: String!) {
+  request: deleteFriendRequest(
+    input: { id: $id, notificationId: $notificationId }
+  ) {
+    id
+  }
+}
+
+# send friend request
+mutation sendFriendRequest(
+  $data: String!
+  $receiverId: String!
+  $senderId: String!
+) {
+  request: sendFriendRequest(
+    input: { data: $data, receiverId: $receiverId, senderId: $senderId }
+  ) {
+    id
+  }
+}
+
+query listFriends($UserID: String!) {
+  friends: listFriendsTables(filter: { userId: { eq: $UserID } }) {
+    items {
+      friendId
+      friendDetails {
+        sub
+        name
+        avatar
+        username
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+query listCommentsOnAPost($postId: ID!) {
+  comments: listCommentsOnAPost(postId: $postId) {
+    items {
+      ...CommentDetails
+    }
+  }
+}
+
+mutation commentOnAPost(
+  $postId: String!
+  $author: String!
+  $content: String!
+  $postAuthor: String!
+) {
+  newComment: createComment(
+    input: {
+      postId: $postId
+      author: $author
+      content: $content
+      postAuthor: $postAuthor
+    }
+  ) {
+    ...CommentDetails
+  }
+}
+
+mutation replyOnAComment(
+  $author: String!
+  $postAuthor: String!
+  $content: String!
+  $parentId: String!
+  $postId: String!
+) {
+  reply: replyOnAComment(
+    input: {
+      author: $author
+      postAuthor: $postAuthor
+      content: $content
+      parentId: $parentId
+      postId: $postId
+    }
+  ) {
+    ...ReplyFragment
+  }
+}
+
+mutation deleteAComment($id: String!, $postId: String!) {
+  deletedComment: deleteComment(input: { id: $id, postId: $postId }) {
+    id
+  }
+}
+
+fragment CommentDetails on Comment {
+  id
+  content
+  createdAt
+  replies {
+    items {
+      ...ReplyFragment
+    }
+  }
+  authorDetails {
+    ...CommentAuthorDetails
+  }
+}
+
+fragment ReplyFragment on Comment {
+  id
+  content
+  createdAt
+  authorDetails {
+    ...CommentAuthorDetails
+  }
+}
+
+fragment CommentAuthorDetails on User {
+  name
+  avatar
+}

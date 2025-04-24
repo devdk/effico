@@ -1,0 +1,71 @@
+query listChatRooms {
+  rooms: listChatRooms {
+    items {
+      avatar
+      cover
+      createdAt
+      createdBy
+      description
+      title
+      id
+    }
+  }
+}
+
+query getChatRoom($id: ID!) {
+  room: getChatRooms(id: $id) {
+    avatar
+    id
+    title
+    description
+    cover
+    createdBy
+    createdAt
+  }
+}
+
+mutation createChatRooms(
+  $avatar: String
+  $cover: String
+  $description: String
+  $createdBy: String!
+  $title: String!
+) {
+  rooms: createChatRooms(
+    input: {
+      avatar: $avatar
+      cover: $cover
+      description: $description
+      createdBy: $createdBy
+      title: $title
+    }
+  ) {
+    id
+  }
+}
+
+mutation updateChatRoom(
+  $avatar: String
+  $cover: String
+  $description: String
+  $title: String!
+  $id: ID!
+) {
+  room: updateChatRooms(
+    input: {
+      avatar: $avatar
+      cover: $cover
+      description: $description
+      title: $title
+      id: $id
+    }
+  ) {
+    id
+  }
+}
+
+mutation deleteChatRooms($id: ID!) {
+  room: deleteChatRooms(input: { id: $id }) {
+    id
+  }
+}

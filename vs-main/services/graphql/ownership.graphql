@@ -1,0 +1,126 @@
+query getVenues($sub: ID!) {
+  ownership: getOwnership(sub: $sub) {
+    venues {
+      items {
+        price
+        VenueProfileCover
+        VenueName
+        VenueID
+        Bio
+      }
+    }
+  }
+}
+
+query getStages($sub: ID!) {
+  ownership: getOwnership(sub: $sub) {
+    stages {
+      items {
+        id
+        price
+        productName
+        rating
+        quantity
+        image
+        creatorId
+        assetType
+        description
+        vendor {
+          VendorID
+          VendorName
+          VendorImage
+        }
+      }
+    }
+  }
+}
+
+query getOwnedSitemaps($sub: ID!) {
+  ownership: getOwnership(sub: $sub) {
+    sitemaps {
+      items {
+        SiteMapID
+        SiteMapDescription
+        SiteMapImage
+        SiteMapName
+        price
+        venue {
+          VenueID
+          VenueName
+          VenueProfileImage
+        }
+      }
+    }
+  }
+}
+
+query getOwnedInGameItems($sub: ID!) {
+  ownership: getOwnership(sub: $sub) {
+    inGameItems {
+      items {
+        id
+        price
+        productName
+        rating
+        quantity
+        image
+        creatorId
+        assetType
+        description
+      }
+    }
+  }
+}
+
+query getOwnedAvatarClothing($sub: ID!) {
+  ownership: getOwnership(sub: $sub) {
+    avatarClothing {
+      items {
+        id
+        price
+        productName
+        rating
+        quantity
+        image
+        creatorId
+        assetType
+        description
+        vendor {
+          VendorID
+          VendorName
+          VendorImage
+        }
+      }
+    }
+  }
+}
+
+query getOwnedTickets($sub: ID!) {
+  ownership: getOwnership(sub: $sub) {
+    tickets {
+      items {
+        EventID
+        NumberOfTicket
+        ItemID
+        PaymentIntentID
+        TicketID
+        Price
+        createdAt
+        UserID
+        Event {
+          EventImages
+          EventOwnerID
+          EventDescription
+          EventCreatorID
+          EventName
+          Price
+          EventDate
+          StartTime
+          EndTime
+          vipPrice
+        }
+        Type
+      }
+    }
+  }
+}

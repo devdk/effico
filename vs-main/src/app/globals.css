@@ -1,0 +1,488 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+.c-container {
+  @apply mx-auto max-w-[1440px] md:px-6;
+}
+
+.c-container-sm {
+  @apply mx-auto max-w-[1200px] px-4 md:px-8;
+}
+
+@layer base {
+  [data-nextjs-scroll-focus-boundary] {
+    /* display: contents; */
+    height: 100%;
+  }
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  @apply bg-base-100 text-sm text-base-content dark:bg-dark-base-100 dark:text-dark-base-content;
+}
+
+.c-title-sm {
+  @apply font-semibold text-heading dark:text-dark-heading;
+}
+
+.c-box {
+  @apply rounded-lg bg-base-200 dark:bg-dark-base-200;
+}
+
+.c-box-flex-jb {
+  @apply flex justify-between rounded-lg bg-base-200 dark:bg-dark-base-200;
+}
+
+/* BORDERS */
+
+.c-divide {
+  @apply divide-y divide-base-100 dark:divide-dark-base-100;
+}
+
+.c-divide-300 {
+  @apply divide-y divide-base-300 dark:divide-dark-base-300;
+}
+
+.color-heading {
+  @apply text-heading dark:text-dark-heading;
+}
+
+.color-divide {
+  @apply divide-base-100 dark:divide-dark-base-100;
+}
+
+/* BUTTONS */
+
+.c-btn {
+  @apply h-10 rounded-lg bg-base-200 px-8 text-base font-medium text-heading dark:bg-dark-base-300 dark:text-dark-heading;
+}
+
+.c-btn-icon {
+  @apply hover:scale-105 transition-all h-10 w-10 rounded-md bg-base-200 flex justify-center items-center text-lg font-medium text-heading dark:bg-dark-base-300 dark:text-dark-heading;
+}
+
+.c-btn-icon-primary {
+  @apply hover:scale-105 transition-all h-10 w-10 rounded-md bg-primary flex justify-center items-center text-lg font-medium text-primary-content;
+}
+
+.c-btn-icon-danger {
+  @apply hover:scale-105 transition-all h-10 w-10 rounded-md bg-base-200 hover:bg-rose-600 flex justify-center items-center text-lg font-medium hover:text-primary-content dark:bg-dark-base-300 text-heading dark:text-dark-heading dark:hover:text-primary-content dark:hover:bg-rose-600;
+}
+
+.c-btn-quarternary {
+  @apply h-10 rounded-lg bg-quarternary px-8 text-base font-medium text-heading dark:bg-dark-quarternary dark:text-dark-heading;
+}
+
+.c-btn-primary {
+  @apply h-10 rounded-lg bg-primary px-8 font-bold text-white;
+}
+
+.c-btn-outline {
+  @apply inline-flex h-10 items-center justify-center rounded-lg border border-primary px-8 font-bold text-white transition-all duration-300 hover:bg-primary;
+}
+
+.c-btn-success {
+  @apply h-10 rounded-lg bg-green-600 px-8 font-bold text-white;
+}
+
+.c-btn-danger {
+  @apply h-10 rounded-lg bg-red-600 px-8 font-bold text-white;
+}
+
+.c-btn-danger-sm {
+  @apply h-8 rounded-lg bg-red-600 px-5 font-bold text-white;
+}
+
+.c-btn-link-primary {
+  @apply flex h-10 w-full items-center justify-center rounded-lg bg-primary px-8 font-bold text-white;
+}
+
+.c-btn-left-primary {
+  @apply flex h-10 w-full items-center rounded-lg bg-primary px-4 font-bold text-white;
+}
+
+.c-btn-left {
+  @apply flex h-10 items-center rounded-lg bg-base-200 px-4 text-base font-medium text-heading hover:bg-base-100 dark:bg-dark-base-200 dark:text-dark-heading hover:dark:bg-dark-base-100;
+}
+
+.c-btn-rounded-icon {
+  @apply flex h-8 w-8 items-center justify-center rounded-full bg-quarternary dark:bg-dark-quarternary;
+}
+
+.c-btn-with-icon {
+  @apply flex h-10 items-center justify-center gap-x-2 rounded-lg bg-base-200 px-4 dark:bg-dark-base-200;
+}
+
+.c-btn-primary-with-icon {
+  @apply flex h-10 items-center justify-center gap-x-2 rounded-lg bg-primary px-4 font-bold text-white;
+}
+
+/* CHIPS */
+
+.c-chip {
+  @apply flex h-9 cursor-pointer items-center justify-center rounded-full border border-base-200/0 bg-base-200 px-3 text-sm font-medium text-heading transition-all duration-300 hover:border-primary/50 dark:bg-dark-base-300 dark:text-dark-heading md:px-4;
+}
+
+.c-chip-primary {
+  @apply flex h-9 cursor-pointer items-center justify-center rounded-full bg-primary px-3 text-sm font-medium text-primary-content transition-all duration-300 md:px-4;
+}
+
+.c-chip-light {
+  @apply flex h-9 cursor-pointer items-center justify-center rounded-full border border-base-200/0 bg-base-100 px-3 text-sm font-medium text-heading transition-all duration-300 hover:border-primary/50 dark:bg-dark-base-300 dark:text-dark-heading md:px-4;
+}
+
+.c-chip-solid-primary {
+  @apply flex h-9 cursor-pointer items-center justify-center rounded-full bg-primary px-4 text-base font-medium text-white transition-all duration-300 md:px-4;
+}
+
+/* FORM ELEMENTS */
+
+.c-input {
+  @apply block h-10 w-full rounded-lg border border-quarternary bg-base-100 px-4 text-base focus:border-primary focus:outline-none dark:border-dark-quarternary/20 dark:bg-dark-base-300 focus:dark:border-primary;
+}
+
+.c-textarea {
+  @apply block w-full resize-none rounded-lg border border-quarternary bg-base-100 py-2 px-4 text-base focus:border-primary focus:outline-none dark:border-dark-quarternary/20 dark:bg-dark-base-300 focus:dark:border-primary;
+}
+
+/* ANIMATIONS */
+.comment-bouncing-loader {
+  display: flex;
+  justify-content: center;
+}
+
+.comment-bouncing-loader > div {
+  width: 8px;
+  height: 8px;
+  margin: 0.2rem 0.2rem;
+  border-radius: 50%;
+  animation: comment-bouncing-loader 0.6s infinite alternate;
+}
+
+.comment-bouncing-loader > div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.comment-bouncing-loader > div:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* post slider  */
+.slick-slider {
+  @apply cursor-grab;
+}
+
+.slick-slider .slick-dots {
+  @apply translate-y-1;
+}
+
+.slick-slider .slick-dots li button {
+  @apply h-1 w-1 rounded-sm bg-base-100 dark:bg-dark-base-300;
+}
+
+.slick-slider .slick-dots li.slick-active button {
+  @apply h-1 w-1 bg-primary;
+}
+
+.slick-slider .slick-dots li button::before {
+  @apply hidden;
+}
+
+.slick-slider .slick-dots li.slick-active button::before {
+  @apply hidden;
+}
+
+/* toast styles */
+
+.c-toast {
+  @apply !border !border-quarternary bg-base-200 !text-heading dark:!border-dark-quarternary/60 dark:bg-dark-base-200 dark:!text-dark-heading;
+}
+
+.c-toast-success {
+  @apply border !border-primary/60 bg-base-200 !text-heading dark:bg-dark-base-200 dark:!text-dark-heading;
+}
+
+.c-toast-error {
+  @apply !border !border-red-500/60 bg-base-200 !text-heading dark:bg-dark-base-200 dark:!text-dark-heading;
+}
+
+/* width */
+.c-scrollbar *::-webkit-scrollbar {
+  @apply w-1 md:w-2;
+}
+
+/* Track */
+.c-scrollbar *::-webkit-scrollbar-track {
+  @apply bg-base-100 dark:bg-dark-base-200;
+}
+
+/* Handle */
+.c-scrollbar *::-webkit-scrollbar-thumb {
+  @apply bg-primary/60 md:bg-base-300 md:dark:bg-dark-base-300;
+}
+
+/* Handle on hover */
+.c-scrollbar *::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/60;
+}
+
+/* chat typing animation */
+.c-typing {
+}
+
+.c-typing-dot {
+  @apply inline-block h-1.5 w-1.5 rounded-full bg-primary;
+  animation: translate 1s infinite ease-in-out;
+}
+
+.c-typing-dot:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.c-typing-dot:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.c-typing-dot:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes translate {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* override the variables for emoji picker */
+#vs-emojis .EmojiPickerReact .epr-emoji-category-label {
+  @apply bg-transparent font-sans text-xs;
+}
+
+#vs-emojis .EmojiPickerReact .epr-search-container input {
+  @apply border-none bg-base-300 outline-none focus:border-none focus:outline-none dark:bg-dark-base-300;
+}
+
+#vs-emojis .EmojiPickerReact .epr-category-nav {
+  @apply !py-0;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 96%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 261 100% 68%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 34 100% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 86.8%;
+    --ring: 261 100% 68%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 210 12% 16%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 261 100% 68%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 34 100% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 10.9%;
+    --input: 0 0% 26.9%;
+    --ring: 261 100% 68%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ======================== */
+/* DATEPICKER DARK MODE OVERRIDES HERE */
+/* ======================== */
+
+.dark .react-datepicker,
+.dark .react-datepicker__time-container .react-datepicker__time,
+.dark .react-datepicker__time-container .react-datepicker__time-box {
+  background-color: #121519 !important;
+  color: #fff !important;
+  border: 1px solid #24292e !important;
+}
+
+.dark .react-datepicker-popper .react-datepicker__triangle {
+  stroke: #24292e !important;
+}
+
+.dark
+  .react-datepicker-popper[data-placement^='bottom']
+  .react-datepicker__triangle,
+.dark
+  .react-datepicker-popper[data-placement^='top']
+  .react-datepicker__triangle {
+  fill: #121519 !important;
+  color: #121519 !important;
+}
+
+.dark .react-datepicker__header {
+  background-color: #24292e !important;
+  border-bottom: 1px solid #555 !important;
+}
+
+.dark .react-datepicker__current-month,
+.dark .react-datepicker-time__header,
+.dark .react-datepicker-year-header {
+  color: #fff !important;
+}
+
+.dark .react-datepicker__navigation {
+  /* Navigation arrows are icon "before" elements,
+     so we update the border color used for their triangles: */
+  border: none !important;
+}
+
+.dark .react-datepicker__navigation-icon::before,
+.dark .react-datepicker__year-read-view--down-arrow,
+.dark .react-datepicker__month-read-view--down-arrow,
+.dark .react-datepicker__month-year-read-view--down-arrow {
+  border-color: #999 !important; /* Arrow icon color */
+}
+
+.dark .react-datepicker__day-name,
+.dark .react-datepicker__day,
+.dark .react-datepicker__time-name {
+  color: #ddd !important;
+}
+
+.dark .react-datepicker__day:not([aria-disabled='true']):hover,
+.dark .react-datepicker__month-text:not([aria-disabled='true']):hover,
+.dark .react-datepicker__quarter-text:not([aria-disabled='true']):hover,
+.dark .react-datepicker__year-text:not([aria-disabled='true']):hover {
+  background-color: #555 !important;
+}
+
+.dark .react-datepicker__day--selected,
+.dark .react-datepicker__day--in-selecting-range,
+.dark .react-datepicker__day--in-range,
+.dark .react-datepicker__month-text--selected,
+.dark .react-datepicker__month-text--in-selecting-range,
+.dark .react-datepicker__month-text--in-range,
+.dark .react-datepicker__quarter-text--selected,
+.dark .react-datepicker__quarter-text--in-selecting-range,
+.dark .react-datepicker__quarter-text--in-range,
+.dark .react-datepicker__year-text--selected,
+.dark .react-datepicker__year-text--in-selecting-range,
+.dark .react-datepicker__year-text--in-range {
+  background-color: #216ba5 !important; /* keep highlight color or choose your own */
+  color: #fff !important;
+}
+
+.dark .react-datepicker__day--keyboard-selected,
+.dark .react-datepicker__month-text--keyboard-selected,
+.dark .react-datepicker__quarter-text--keyboard-selected,
+.dark .react-datepicker__year-text--keyboard-selected {
+  background-color: #377fb2 !important;
+  color: #fff !important;
+}
+
+.dark .react-datepicker__time-container {
+  border-left: 1px solid #24292e !important;
+}
+
+.dark
+  .react-datepicker__time-container
+  .react-datepicker__time
+  .react-datepicker__time-box
+  ul.react-datepicker__time-list
+  li.react-datepicker__time-list-item:hover {
+  background-color: #555 !important;
+}
+
+.dark .react-datepicker__close-icon::after {
+  background-color: #555 !important;
+  color: #fff !important;
+}
+
+.dark .react-datepicker__today-button {
+  background: #24292e !important;
+  border-top: 1px solid #555 !important;
+  color: #fff !important;
+}
+
+/* Target the time-list element in dark mode */
+.dark
+  .react-datepicker__time-container
+  .dark
+  .react-datepicker__time
+  .dark
+  .react-datepicker__time-box
+  .dark
+  .react-datepicker__time-list {
+  /* For Firefox: */
+  scrollbar-width: thin;
+  scrollbar-color: #555 #333;
+}
+
+/* For WebKit-based browsers (Chrome, Safari, Edge): */
+.dark .react-datepicker__time-list::-webkit-scrollbar {
+  width: 8px;
+  background-color: #333;
+}
+.dark .react-datepicker__time-list::-webkit-scrollbar-thumb {
+  background-color: #955cff;
+  border-radius: 4px;
+  border: 1px solid #333; /* optional border for contrast */
+}
+.dark .react-datepicker__time-list::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+}

@@ -1,0 +1,95 @@
+query getUser($sub: String!) {
+  user: getUser(sub: $sub) {
+    ...UserDetails
+  }
+}
+
+query getUserAddress($sub: String!) {
+  user: getUser(sub: $sub) {
+    sub
+    addresses {
+      name
+      phone
+      address {
+        state
+        postal_code
+        line2
+        line1
+        country
+        city
+      }
+    }
+  }
+}
+
+query getProfile($sub: String!, $friendId: String!) {
+  user: getUser(sub: $sub) {
+    ...UserProfile
+  }
+}
+
+mutation updateUser(
+  $about: String
+  $avatar: String
+  $cover: String
+  $addresses: [ContactInput!]
+  $gender: String
+  $name: String
+  $sub: String!
+) {
+  update: updateUser(
+    input: {
+      about: $about
+      avatar: $avatar
+      cover: $cover
+      addresses: $addresses
+      gender: $gender
+      name: $name
+      sub: $sub
+    }
+  ) {
+    about
+    avatar
+    cover
+    email
+    createdAt
+    gender
+    name
+    sub
+    username
+  }
+}
+
+fragment UserDetails on User {
+  about
+  avatar
+  name
+  sub
+  username
+  gender
+  email
+  stripeCustomerId
+  subscriptionId
+  subscriptionStatus
+  connectedStripeAccountId
+  cover
+  createdAt
+}
+
+fragment UserProfile on User {
+  about
+  avatar
+  name
+  sub
+  username
+  isFriendOfUser(friendId: $friendId)
+  hasSentRequestToUser(receiverId: $friendId)
+  gender
+  email
+  stripeCustomerId
+  subscriptionId
+  subscriptionStatus
+  connectedStripeAccountId
+  cover
+  createdAt
+}

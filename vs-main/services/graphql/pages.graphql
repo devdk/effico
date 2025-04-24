@@ -1,0 +1,130 @@
+query ListVirtuosoPages(
+  $showCreators: Boolean!
+  $showVenues: Boolean!
+  $showVendors: Boolean!
+  $creatorFilter: TableVirtuosoCreatorsFilterInput
+  $venueFilter: TableVirtuosoVenuesFilterInput
+  $vendorFilter: TableVirtuosoVendorsFilterInput
+) {
+  creators: listVirtuosoCreators(filter: $creatorFilter, limit: 200) {
+    items @include(if: $showCreators) {
+      ...VirtuosoCreatorsDataset
+    }
+  }
+
+  venues: listVirtuosoVenues(filter: $venueFilter, limit: 200) {
+    items @include(if: $showVenues) {
+      ...VirtuosoVenuesDataset
+    }
+  }
+
+  vendors: listVirtuosoVendors(filter: $vendorFilter, limit: 200) {
+    items @include(if: $showVendors) {
+      ...VirtuosoVendorsDataset
+    }
+  }
+}
+
+mutation followPage($pageId: String!, $pageType: String!, $userId: String!) {
+  createVirtuosoPageFollow(
+    input: { pageId: $pageId, pageType: $pageType, userId: $userId }
+  ) {
+    pageId
+    pageType
+    userId
+  }
+}
+
+mutation unfollowPage($pageId: String!, $userId: String!) {
+  deleteVirtuosoPageFollow(input: { pageId: $pageId, userId: $userId }) {
+    pageId
+    pageType
+    userId
+  }
+}
+
+fragment VirtuosoCreatorsDataset on VirtuosoCreators {
+  CreatorBio
+  CreatorCategory
+  CreatorGuestlistID
+  CreatorID
+  CreatorLocationID
+  CreatorName
+  CreatorOwnerID
+  CreatorStartDate
+  CreatorVisibility
+  CreatorImage
+  CreatorCover
+  followerCount
+  followers {
+    items {
+      pageId
+      pageType
+      userId
+      user {
+        avatar
+        sub
+      }
+    }
+  }
+}
+
+fragment VirtuosoVenuesDataset on VirtuosoVenues {
+  Address
+  Android_PAKURL
+  Bio
+  IsRealWorldVenue
+  Linux_PAKURL
+  NumberOfStages
+  Mac_PAKURL
+  VenueAuthor
+  VenueCreatorID
+  VenueID
+  VenueImages
+  VenueName
+  VenueOwnerID
+  VenueProfileCover
+  VenueProfileImage
+  VenueProfileImages
+  VenueTimeCreated
+  VenueUMAP_Name
+  Windows_PAKURL
+  iOS_PAKURL
+  followerCount
+  followers {
+    items {
+      pageId
+      pageType
+      userId
+      user {
+        avatar
+        sub
+      }
+    }
+  }
+}
+
+fragment VirtuosoVendorsDataset on VirtuosoVendors {
+  GuestlistID
+  IsRealWorldVendor
+  VendorBio
+  VendorCreatorID
+  VendorID
+  VendorName
+  VendorCover
+  VendorImage
+  VendorOwnerID
+  VendorVisibility
+  followerCount
+  followers {
+    items {
+      pageId
+      pageType
+      userId
+      user {
+        avatar
+        sub
+      }
+    }
+  }
+}

@@ -1,0 +1,148 @@
+query getSitemapsByVenueID($SiteMapVenueID: String) {
+  listVirtuosoSiteMaps(filter: { SiteMapVenueID: { eq: $SiteMapVenueID } }) {
+    items {
+      SiteMapVenueID
+      SiteMapOwnerID
+      SiteMapName
+      SiteMapImage
+      SiteMapID
+      SiteMapDescription
+      SiteMapDateCreated
+      SiteMapGuestlistID
+    }
+  }
+}
+
+query listMarketplaceSitemaps(
+  $userId: String!
+  $nextToken: String
+  $limit: Int = 9
+) {
+  sitemaps: listVirtuosoSiteMaps(nextToken: $nextToken, limit: $limit) {
+    items {
+      SiteMapID
+      price
+      isOwnedByUser(sub: $userId)
+      SiteMapName
+      SiteMapImage
+      SiteMapDescription
+      venue {
+        VenueID
+        VenueName
+        VenueProfileImage
+      }
+    }
+    nextToken
+  }
+}
+
+mutation CreateVenueSiteMap(
+  $SiteMapID: String!
+  $SiteMapCreatorID: String
+  $SiteMapOwnerID: String
+  $SiteMapVenueID: String
+  $SiteMapName: String
+  $SiteMapImage: String
+  $Android_PAKURL: String
+  $Linux_PAKURL: String
+  $Mac_PAKURL: String
+  $Windows_PAKURL: String
+  $iOS_PAKURL: String
+  $SiteMapDescription: String
+  $umapConfig: UmapConfigInput
+  $SiteMapUMAP_Name: String
+  $price: Int
+) {
+  newSitemap: createVirtuosoSiteMaps(
+    input: {
+      Mac_PAKURL: $Mac_PAKURL
+      SiteMapCreatorID: $SiteMapCreatorID
+      SiteMapName: $SiteMapName
+      Android_PAKURL: $Android_PAKURL
+      Linux_PAKURL: $Linux_PAKURL
+      SiteMapID: $SiteMapID
+      SiteMapImage: $SiteMapImage
+      SiteMapOwnerID: $SiteMapOwnerID
+      SiteMapVenueID: $SiteMapVenueID
+      Windows_PAKURL: $Windows_PAKURL
+      iOS_PAKURL: $iOS_PAKURL
+      SiteMapDescription: $SiteMapDescription
+      umapConfig: $umapConfig
+      SiteMapUMAP_Name: $SiteMapUMAP_Name
+      price: $price
+    }
+  ) {
+    ...VirtuosoSiteMapsFragment
+  }
+}
+
+query getVirtuosoSitemap($SiteMapID: String!, $sub: String) {
+  getVirtuosoSiteMaps(SiteMapID: $SiteMapID) {
+    ...VirtuosoSiteMapsFragment
+    isOwnedByUser(sub: $sub)
+  }
+}
+
+fragment VirtuosoSiteMapsFragment on VirtuosoSiteMaps {
+  Android_PAKURL
+  iOS_PAKURL
+  Linux_PAKURL
+  Mac_PAKURL
+  SiteMapCreatorID
+  SiteMapDateCreated
+  SiteMapDescription
+  SiteMapGuestlistID
+  SiteMapID
+  SiteMapImage
+  SiteMapName
+  SiteMapOwnerID
+  SiteMapVenueID
+  Windows_PAKURL
+  SiteMapUMAP_Name
+  price
+  venue {
+    VenueID
+    VenueName
+    VenueProfileImage
+  }
+  umapConfig {
+    linux
+    windows
+    mac
+    ios
+    android
+    linux_dedicated
+  }
+}
+
+mutation updateVirtuosoSiteMap(
+  $SiteMapDescription: String
+  $SiteMapID: String!
+  $SiteMapImage: String
+  $SiteMapName: String
+  $Android_PAKURL: String
+  $Linux_PAKURL: String
+  $Mac_PAKURL: String
+  $Windows_PAKURL: String
+  $iOS_PAKURL: String
+  $SiteMapUMAP_Name: String
+  $price: Int
+) {
+  updateVirtuosoSiteMaps(
+    input: {
+      SiteMapDescription: $SiteMapDescription
+      SiteMapID: $SiteMapID
+      SiteMapImage: $SiteMapImage
+      SiteMapName: $SiteMapName
+      Mac_PAKURL: $Mac_PAKURL
+      Android_PAKURL: $Android_PAKURL
+      Linux_PAKURL: $Linux_PAKURL
+      Windows_PAKURL: $Windows_PAKURL
+      iOS_PAKURL: $iOS_PAKURL
+      SiteMapUMAP_Name: $SiteMapUMAP_Name
+      price: $price
+    }
+  ) {
+    SiteMapID
+  }
+}

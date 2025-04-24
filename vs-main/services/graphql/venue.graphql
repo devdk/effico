@@ -1,0 +1,285 @@
+# QUERIES
+query GetVenuePage($VenueID: String!, $userId: String!) {
+  venue: getVirtuosoVenues(VenueID: $VenueID) {
+    ...VirtuosoVenueDetails
+    isFollowedByUser(userId: $userId)
+    isOwnedByUser(sub: $userId)
+    posts {
+      ...VenuePostFragment
+    }
+  }
+}
+
+query GetVenue($VenueID: String!) {
+  venue: getVirtuosoVenues(VenueID: $VenueID) {
+    ...VirtuosoVenueDetails
+  }
+}
+
+query listVirtuosoVenues(
+  $filter: TableVirtuosoVenuesFilterInput
+  $nextToken: String = ""
+  $limit: Int = 200
+) {
+  venues: listVirtuosoVenues(
+    filter: $filter
+    nextToken: $nextToken
+    limit: $limit
+  ) {
+    items {
+      Address
+      Android_PAKURL
+      Bio
+      IsRealWorldVenue
+      Linux_PAKURL
+      NumberOfStages
+      Mac_PAKURL
+      VenueAuthor
+      VenueCreatorID
+      VenueID
+      VenueImages
+      VenueName
+      VenueOwnerID
+      VenueProfileCover
+      VenueProfileImage
+      VenueProfileImages
+      VenueTimeCreated
+      VenueUMAP_Name
+      Windows_PAKURL
+      iOS_PAKURL
+      followerCount
+      followers {
+        items {
+          pageId
+          pageType
+          userId
+          user {
+            avatar
+            sub
+          }
+        }
+      }
+    }
+    nextToken
+  }
+}
+
+query listMarketplaceVenues($nextToken: String, $sub: String, $limit: Int = 9) {
+  venues: listVirtuosoVenues(nextToken: $nextToken, limit: $limit) {
+    items {
+      price
+      VenueProfileCover
+      VenueName
+      VenueID
+      Bio
+      isOwnedByUser(sub: $sub)
+    }
+    nextToken
+  }
+}
+
+query GetVenuesCreatedByUser($VenueCreatorID: String!) {
+  listVirtuosoVenues(filter: { VenueCreatorID: { eq: $VenueCreatorID } }) {
+    items {
+      VenueImages
+      VenueName
+      VenueID
+      VenueOwnerID
+      NumberOfStages
+      VenueCreatorID
+    }
+  }
+}
+
+# MUTATIONS
+# create a venue page
+mutation CreateVenuePage(
+  $Bio: String
+  $VenueName: String
+  $VenueOwnerID: String
+  $VenueAuthor: String
+  $IsRealWorldVenue: String!
+  $VenueCreatorID: String!
+) {
+  newVenue: createVirtuosoVenues(
+    input: {
+      Bio: $Bio
+      VenueName: $VenueName
+      VenueOwnerID: $VenueOwnerID
+      VenueAuthor: $VenueAuthor
+      IsRealWorldVenue: $IsRealWorldVenue
+      VenueCreatorID: $VenueCreatorID
+    }
+  ) {
+    ...VirtuosoVenueDetails
+  }
+}
+
+# update bio of a venue page
+mutation updateVenueBio($VenueID: String!, $Bio: String) {
+  update: updateVirtuosoVenues(input: { VenueID: $VenueID, Bio: $Bio }) {
+    Bio
+    VenueID
+  }
+}
+
+# update header of a venue page
+mutation updateVenueHeader(
+  $Bio: String
+  $VenueID: String!
+  $VenueProfileImage: String
+  $VenueProfileCover: String
+  $VenueName: String
+) {
+  update: updateVirtuosoVenues(
+    input: {
+      Bio: $Bio
+      VenueID: $VenueID
+      VenueProfileImage: $VenueProfileImage
+      VenueProfileCover: $VenueProfileCover
+      VenueName: $VenueName
+    }
+  ) {
+    ...VirtuosoVenueDetails
+  }
+}
+
+# update venue images and pak files
+mutation updateVenuePak(
+  $VenueID: String!
+  $Android_PAKURL: String
+  $Linux_PAKURL: String
+  $Mac_PAKURL: String
+  $Linux_Dedicated_Server_PAKURL: String
+  $NumberOfStages: Int
+  $Windows_PAKURL: String
+  $iOS_PAKURL: String
+  $VenueImages: [String]
+  $StageNames: [String]
+  $VenueUMAP_Name: String
+  $price: Int
+) {
+  update: updateVirtuosoVenues(
+    input: {
+      VenueID: $VenueID
+      Android_PAKURL: $Android_PAKURL
+      Linux_PAKURL: $Linux_PAKURL
+      Mac_PAKURL: $Mac_PAKURL
+      Linux_Dedicated_Server_PAKURL: $Linux_Dedicated_Server_PAKURL
+      NumberOfStages: $NumberOfStages
+      Windows_PAKURL: $Windows_PAKURL
+      iOS_PAKURL: $iOS_PAKURL
+      VenueImages: $VenueImages
+      StageNames: $StageNames
+      VenueUMAP_Name: $VenueUMAP_Name
+      price: $price
+    }
+  ) {
+    ...VirtuosoVenueDetails
+  }
+}
+
+# update deactivated status of the venue page - update activeness of venue page
+mutation updateVenueDeactivated($VenueID: String!, $isDeactivated: Boolean) {
+  VirtuosoVenue: updateVirtuosoVenues(
+    input: { VenueID: $VenueID, isDeactivated: $isDeactivated }
+  ) {
+    ...VirtuosoVenueDetails
+  }
+}
+
+# FRAGMENTS
+fragment VirtuosoVenueDetails on VirtuosoVenues {
+  Address
+  Android_PAKURL
+  Bio
+  IsRealWorldVenue
+  Linux_PAKURL
+  NumberOfStages
+  Mac_PAKURL
+  VenueAuthor
+  StageNames
+  VenueCreatorID
+  VenueID
+  VenueImages
+  VenueName
+  VenueOwnerID
+  Linux_Dedicated_Server_PAKURL
+  VenueProfileCover
+  VenueProfileImage
+  VenueProfileImages
+  VenueTimeCreated
+  VenueUMAP_Name
+  Windows_PAKURL
+  iOS_PAKURL
+  followerCount
+  isDeactivated
+  price
+  followers {
+    items {
+      pageId
+      pageType
+      userId
+      user {
+        avatar
+        sub
+      }
+    }
+  }
+}
+
+fragment VenuePostFragment on PostConnection {
+  items {
+    author
+    content
+    id
+    images
+    commentsCount
+    likesCount
+    pageId
+    isLikedByUser(userId: $userId)
+    createdAt
+    topComments {
+      items {
+        authorDetails {
+          name
+          avatar
+          sub
+        }
+        content
+        createdAt
+        id
+        isReply
+        parentId
+        postId
+      }
+    }
+    likes {
+      authorDetails {
+        avatar
+        sub
+        name
+      }
+    }
+    creatorPage {
+      CreatorID
+      CreatorName
+      CreatorImage
+    }
+    venuePage {
+      VenueID
+      VenueName
+      VenueProfileImage
+    }
+    authorDetails {
+      ...VenuePostAuthorDetails
+    }
+  }
+  nextToken
+}
+
+fragment VenuePostAuthorDetails on User {
+  avatar
+  name
+  sub
+}

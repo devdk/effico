@@ -1,0 +1,207 @@
+# QUERIES
+query GetCreatorPage($CreatorID: String!, $userId: String!) {
+  creator: getVirtuosoCreators(CreatorID: $CreatorID) {
+    ...VirtuosoCreatorDetails
+    isFollowedByUser(userId: $userId)
+    posts {
+      ...CreatorPostFragment
+    }
+  }
+}
+
+query listVirtuosoCreators(
+  $filter: TableVirtuosoCreatorsFilterInput
+  $nextToken: String = ""
+  $limit: Int = 20
+) {
+  creators: listVirtuosoCreators(
+    filter: $filter
+    nextToken: $nextToken
+    limit: $limit
+  ) {
+    items {
+      CreatorBio
+      CreatorCategory
+      CreatorGuestlistID
+      CreatorID
+      CreatorLocationID
+      CreatorName
+      CreatorOwnerID
+      CreatorStartDate
+      CreatorVisibility
+      CreatorImage
+      CreatorCover
+      followerCount
+      followers {
+        items {
+          pageId
+          pageType
+          userId
+          user {
+            avatar
+            sub
+          }
+        }
+      }
+    }
+    nextToken
+  }
+}
+
+# MUTATIONS
+# create a creator page
+mutation CreateCreatorPage(
+  $CreatorBio: String
+  $CreatorOwnerID: String
+  $CreatorName: String
+  $CreatorImage: String
+  $CreatorCover: String
+) {
+  newCreator: createVirtuosoCreators(
+    input: {
+      CreatorBio: $CreatorBio
+      CreatorOwnerID: $CreatorOwnerID
+      CreatorName: $CreatorName
+      CreatorImage: $CreatorImage
+      CreatorCover: $CreatorCover
+    }
+  ) {
+    ...VirtuosoCreatorDetails
+  }
+}
+
+# update bio of a creator page
+mutation updateCreatorBio($CreatorID: String!, $CreatorBio: String) {
+  update: updateVirtuosoCreators(
+    input: { CreatorBio: $CreatorBio, CreatorID: $CreatorID }
+  ) {
+    CreatorBio
+  }
+}
+
+# update header of a creator page
+mutation updateCreatorHeader(
+  $CreatorID: String!
+  $CreatorImage: String
+  $CreatorCover: String
+  $CreatorName: String
+  $CreatorBio: String
+) {
+  update: updateVirtuosoCreators(
+    input: {
+      CreatorID: $CreatorID
+      CreatorImage: $CreatorImage
+      CreatorCover: $CreatorCover
+      CreatorName: $CreatorName
+      CreatorBio: $CreatorBio
+    }
+  ) {
+    ...VirtuosoCreatorDetails
+  }
+}
+
+# update disability of the creator page - delete page handling
+mutation updateCreatorDisability($CreatorID: String!, $isDisabled: Boolean) {
+  VirtuosoCreator: updateVirtuosoCreators(
+    input: { CreatorID: $CreatorID, isDisabled: $isDisabled }
+  ) {
+    ...VirtuosoCreatorDetails
+  }
+}
+
+# update deactivated status of the creator page - update activeness of creator page
+mutation updateCreatorDeactivated(
+  $CreatorID: String!
+  $isDeactivated: Boolean
+) {
+  VirtuosoCreator: updateVirtuosoCreators(
+    input: { CreatorID: $CreatorID, isDeactivated: $isDeactivated }
+  ) {
+    ...VirtuosoCreatorDetails
+  }
+}
+
+# FRAGMENTS
+fragment VirtuosoCreatorDetails on VirtuosoCreators {
+  CreatorBio
+  CreatorCategory
+  CreatorGuestlistID
+  CreatorID
+  CreatorLocationID
+  CreatorName
+  CreatorVisibility
+  CreatorStartDate
+  CreatorOwnerID
+  CreatorImage
+  CreatorCover
+  followerCount
+  followers {
+    items {
+      pageId
+      pageType
+      userId
+      user {
+        avatar
+        sub
+      }
+    }
+  }
+  isDisabled
+  isDeactivated
+}
+
+fragment CreatorPostFragment on PostConnection {
+  items {
+    author
+    content
+    id
+    images
+    commentsCount
+    likesCount
+    isLikedByUser(userId: $userId)
+    pageId
+    createdAt
+    topComments {
+      items {
+        authorDetails {
+          name
+          avatar
+          sub
+        }
+        content
+        createdAt
+        id
+        isReply
+        parentId
+        postId
+      }
+    }
+    likes {
+      authorDetails {
+        avatar
+        sub
+        name
+      }
+    }
+    creatorPage {
+      CreatorID
+      CreatorName
+      CreatorImage
+    }
+    venuePage {
+      VenueID
+      VenueName
+      VenueProfileImage
+    }
+    authorDetails {
+      ...CreatorPostAuthorDetails
+    }
+  }
+  nextToken
+}
+
+fragment CreatorPostAuthorDetails on User {
+  avatar
+  name
+  sub
+}

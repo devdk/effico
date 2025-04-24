@@ -1,0 +1,393 @@
+query getEvent($eventId: String!, $sub: String = "guest") {
+  getVirtuosoEvents(EventID: $eventId) {
+    EventCategory
+    EventCreatorID
+    EventDescription
+    EventImages
+    EventName
+    isEventLive
+    EventDate
+    isLive
+    StartTime
+    EndTime
+    VenueID
+    isTicketOwnedByUser(sub: $sub)
+    EventID
+    isLive
+    showOrganizer
+    timezone
+    showCreator
+    isRecording
+    createdAt
+    updatedAt
+    Price
+    SitemapID
+    isVipEntryAllowed
+    VenueLocation
+    EventCreatorPageId
+    isRealEvent
+    RealTicketLink
+    creatorPage {
+      CreatorBio
+      CreatorName
+      CreatorImage
+      CreatorID
+      CreatorCover
+    }
+    vipPrice
+    sitemap {
+      SiteMapID
+      SiteMapName
+      SiteMapImage
+    }
+    StageStreamMaps {
+      stageID
+      stageName
+      streamID
+    }
+    venue {
+      VenueID
+      VenueName
+      VenueProfileImage
+      VenueProfileCover
+    }
+    eventOwner {
+      avatar
+      name
+      sub
+    }
+  }
+}
+
+mutation DeleteVirtuosoEvent($EventId: String!) {
+  event: deleteVirtuosoEvents(input: { EventID: $EventId }) {
+    EventID
+  }
+}
+
+query getEventTicketStatus($eventId: String!, $sub: String!) {
+  getVirtuosoEvents(EventID: $eventId) {
+    EventID
+    isTicketOwnedByUser(sub: $sub)
+  }
+}
+
+query listEvents($nextToken: String = "", $limit: Int = 15) {
+  events: listVirtuosoEvents(nextToken: $nextToken, limit: $limit) {
+    items {
+      EventID
+      EventImages
+      EventName
+      isLive
+      isEventLive
+      venue {
+        VenueName
+        VenueProfileImage
+        VenueID
+      }
+    }
+    nextToken
+  }
+}
+
+query getStreamsAndRecordings($eventId: String = "", $stageId: String = "") {
+  live: getStreamsByStage(eventId: $eventId, stageId: $stageId) {
+    items {
+      streamID
+      playbackURL
+      streamName
+      isLive
+    }
+  }
+  recordings: getStreamRecordingsByStage(eventId: $eventId, stageId: $stageId) {
+    items {
+      id
+      status
+      playback_id
+    }
+  }
+}
+
+query listPaginatedEventsByCategory(
+  $category: String
+  $nextToken: String = ""
+  $limit: Int = 15
+) {
+  events: listVirtuosoEvents(
+    filter: { EventCategory: { eq: $category } }
+    nextToken: $nextToken
+    limit: $limit
+  ) {
+    items {
+      EventID
+      EventImages
+      EventName
+      isLive
+      isEventLive
+      venue {
+        VenueName
+        VenueProfileImage
+        VenueID
+      }
+    }
+    nextToken
+  }
+}
+
+query listEventsByCategory($limit: Int = 9) {
+  music: listVirtuosoEvents(
+    filter: { EventCategory: { eq: "Music" } }
+    limit: $limit
+  ) {
+    ...EventCardDetails
+  }
+  sports: listVirtuosoEvents(
+    filter: { EventCategory: { eq: "Sports" } }
+    limit: $limit
+  ) {
+    ...EventCardDetails
+  }
+  expos: listVirtuosoEvents(
+    filter: { EventCategory: { eq: "Expos" } }
+    limit: $limit
+  ) {
+    ...EventCardDetails
+  }
+  performance: listVirtuosoEvents(
+    filter: { EventCategory: { eq: "Performance" } }
+    limit: $limit
+  ) {
+    ...EventCardDetails
+  }
+  movies: listVirtuosoEvents(
+    filter: { EventCategory: { eq: "Movies" } }
+    limit: $limit
+  ) {
+    ...EventCardDetails
+  }
+  education: listVirtuosoEvents(
+    filter: { EventCategory: { eq: "Education" } }
+    limit: $limit
+  ) {
+    ...EventCardDetails
+  }
+  social: listVirtuosoEvents(
+    filter: { EventCategory: { eq: "Social" } }
+    limit: $limit
+  ) {
+    ...EventCardDetails
+  }
+  cities: listVirtuosoEvents(
+    filter: { EventCategory: { eq: "Cities" } }
+    limit: $limit
+  ) {
+    ...EventCardDetails
+  }
+  workplace: listVirtuosoEvents(
+    filter: { EventCategory: { eq: "Workplace" } }
+    limit: $limit
+  ) {
+    ...EventCardDetails
+  }
+}
+
+fragment EventCardDetails on VirtuosoEventsConnection {
+  items {
+    EventID
+    EventImages
+    EventName
+    isLive
+    isEventLive
+    venue {
+      VenueName
+      VenueProfileImage
+      VenueID
+    }
+  }
+}
+
+query getVenueSitemapsAndStreams($VenueID: String!, $CreatorID: String) {
+  venue: getVirtuosoVenues(VenueID: $VenueID) {
+    StageNames
+  }
+
+  sitemaps: listVirtuosoSiteMapsByVenueID(venueId: $VenueID) {
+    items {
+      SiteMapName
+      SiteMapID
+    }
+  }
+
+  livestreams: listStreamConfigurations(
+    filter: { creatorID: { eq: $CreatorID } }
+  ) {
+    items {
+      creatorID
+      streamID
+      streamName
+      playbackURL
+      streamKey
+      streamType
+    }
+  }
+}
+
+mutation CreateEvent(
+  $EventName: String
+  $EventOwnerID: String
+  $EventCreatorID: String
+  $EventCategory: String
+  $EventImages: [String]
+  $EventTimeCreated: String
+  $EventDescription: String
+  $VenueID: String
+  $SitemapID: String
+  $StageStreamMaps: [StageStreamMapInput]
+  $Price: String
+  $EventDate: String
+  $StartTime: String
+  $EndTime: String
+  $isVipEntryAllowed: Boolean
+  $vipPrice: String
+  $isEventLive: Boolean
+  $EventID: String!
+  $showOrganizer: Boolean
+  $showCreator: Boolean
+  $isRecording: Boolean
+  $VenueLocation: String
+  $EventCreatorPageId: String
+  $isRealEvent: Boolean
+  $RealTicketLink: String
+  $timezone: String
+) {
+  createVirtuosoEvents(
+    input: {
+      EventID: $EventID
+      EventName: $EventName
+      EventOwnerID: $EventOwnerID
+      EventCreatorID: $EventCreatorID
+      EventCategory: $EventCategory
+      EventImages: $EventImages
+      EventTimeCreated: $EventTimeCreated
+      EventDescription: $EventDescription
+      VenueID: $VenueID
+      SitemapID: $SitemapID
+      StageStreamMaps: $StageStreamMaps
+      Price: $Price
+      EndTime: $EndTime
+      StartTime: $StartTime
+      EventDate: $EventDate
+      isVipEntryAllowed: $isVipEntryAllowed
+      vipPrice: $vipPrice
+      isEventLive: $isEventLive
+      showOrganizer: $showOrganizer
+      showCreator: $showCreator
+      isRecording: $isRecording
+      VenueLocation: $VenueLocation
+      EventCreatorPageId: $EventCreatorPageId
+      isRealEvent: $isRealEvent
+      RealTicketLink: $RealTicketLink
+      timezone: $timezone
+    }
+  ) {
+    EventID
+    EventName
+    EventImages
+    EventDate
+    isLive
+    StartTime
+    EndTime
+    Price
+    isEventLive
+    timezone
+    VenueLocation
+    StageStreamMaps {
+      stageName
+      streamID
+      stageID
+    }
+    VenueID
+    venue {
+      VenueName
+    }
+  }
+}
+
+mutation UpdateEvent(
+  $EventName: String
+  $EventOwnerID: String
+  $EventCreatorID: String
+  $EventCategory: String
+  $EventImages: [String]
+  $EventTimeCreated: String
+  $EventDescription: String
+  $EventID: String!
+  $VenueID: String
+  $SitemapID: String
+  $StageStreamMaps: [StageStreamMapInput]
+  $Price: String
+  $EventDate: String
+  $StartTime: String
+  $EndTime: String
+  $isVipEntryAllowed: Boolean
+  $vipPrice: String
+  $isEventLive: Boolean
+  $showOrganizer: Boolean
+  $showCreator: Boolean
+  $isRecording: Boolean
+  $VenueLocation: String
+  $isRealEvent: Boolean
+  $RealTicketLink: String
+  $timezone: String
+) {
+  updateVirtuosoEvents(
+    input: {
+      EventName: $EventName
+      EventOwnerID: $EventOwnerID
+      EventCreatorID: $EventCreatorID
+      EventCategory: $EventCategory
+      EventImages: $EventImages
+      EventTimeCreated: $EventTimeCreated
+      EventDescription: $EventDescription
+      VenueID: $VenueID
+      EventID: $EventID
+      SitemapID: $SitemapID
+      StageStreamMaps: $StageStreamMaps
+      Price: $Price
+      EndTime: $EndTime
+      StartTime: $StartTime
+      EventDate: $EventDate
+      isVipEntryAllowed: $isVipEntryAllowed
+      vipPrice: $vipPrice
+      isEventLive: $isEventLive
+      showOrganizer: $showOrganizer
+      showCreator: $showCreator
+      isRecording: $isRecording
+      VenueLocation: $VenueLocation
+      isRealEvent: $isRealEvent
+      RealTicketLink: $RealTicketLink
+      timezone: $timezone
+    }
+  ) {
+    EventID
+    EventName
+    EventImages
+    EventDate
+    StartTime
+    isLive
+    EndTime
+    timezone
+    isEventLive
+    Price
+    VenueLocation
+    StageStreamMaps {
+      stageName
+      streamID
+      stageID
+    }
+    VenueID
+    venue {
+      VenueName
+    }
+  }
+}

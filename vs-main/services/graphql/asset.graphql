@@ -1,0 +1,27 @@
+# operation with are grouped (order and user asset) will come here
+
+query getOrderedAndCreatedStages(
+  $BuyerID: String
+  $AssetType: String
+  $sub: ID!
+) {
+  assets: listUserAssets(
+    filter: { creatorId: { eq: $BuyerID }, assetType: { eq: $AssetType } }
+  ) {
+    items {
+      id
+      productName
+      assetType
+    }
+  }
+
+  order: getOwnership(sub: $sub) {
+    stages {
+      items {
+        id
+        productName
+        assetType
+      }
+    }
+  }
+}

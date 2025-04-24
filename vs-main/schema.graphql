@@ -1,0 +1,3624 @@
+type Address {
+  city: String
+  country: String
+  line1: String
+  line2: String
+  postal_code: String
+  state: String
+}
+
+input AddressInput {
+  city: String
+  country: String
+  line1: String
+  line2: String
+  postal_code: String
+  state: String
+}
+
+type Agent {
+  id: String
+  Hostname: String
+  IPAddress: String
+  MACAddress: String
+  BroadcastAddress: String
+  OS: String
+  OBSStatus: String
+  LastActive: String
+  StartTime: String
+  Version: String
+  OBSVersion: String
+  Region: String
+  Tags: [String]
+  LastError: String
+  IsStreaming: Boolean
+  Health: String
+  UptimeSeconds: Int
+  EventID: String
+  VenueID: String
+  upcomingEvents: [String]
+  upcomingStartTimes: [String]
+  raspLastHeartbeat: String
+  raspUptime: Int
+  raspHealth: String
+  raspStartTime: String
+  raspIPAddress: String
+  raspBroadcastAddress: String
+  raspVersion: String
+  raspEventID: String
+  raspVenueID: String
+  raspUpcomingEvents: [String]
+  raspUpcomingStartTimes: [String]
+  timezone: String
+  raspTimezone: String
+  serverTime: String
+  raspServerTime: String
+}
+
+type AgentConnection {
+  items: [Agent]
+  nextToken: String
+}
+
+type Amount {
+  cartTotal: Int
+  tax: Int
+  discount: Int
+  shipping: Int
+  subTotal: Int
+}
+
+input AmountInput {
+  cartTotal: Int!
+  tax: Int!
+  discount: Int!
+  shipping: Int!
+  subTotal: Int!
+}
+
+type Asset {
+  userId: ID!
+  assetId: String!
+  assetType: String!
+}
+
+type AssetConnection {
+  items: [Asset]
+  nextToken: String
+}
+
+type CartItem {
+  productId: String!
+  quantity: Int
+}
+
+input CartItemInput {
+  productId: String!
+  quantity: Int
+}
+
+type ChatRooms {
+  id: ID!
+  title: String!
+  description: String
+  avatar: String
+  cover: String
+  createdBy: String!
+  createdAt: String!
+}
+
+type ChatRoomsConnection {
+  items: [ChatRooms]
+  nextToken: String
+}
+
+type Comment @aws_cognito_user_pools @aws_api_key {
+  id: String!
+  postId: String!
+  createdAt: String
+  content: String!
+  author: String!
+  authorDetails: User
+  isReply: Boolean
+  parentId: String
+  replies(asc: Boolean): CommentConnection
+}
+
+type CommentConnection @aws_cognito_user_pools @aws_api_key {
+  items: [Comment]
+  nextToken: String
+}
+
+type Contact {
+  id: String
+  name: String
+  phone: String
+  address: Address
+}
+
+input ContactInput {
+  name: String
+  phone: String
+  address: AddressInput
+}
+
+input CreateAgentInput {
+  Hostname: String
+  IPAddress: String
+  MACAddress: String
+  BroadcastAddress: String
+  OS: String
+  OBSStatus: String
+  LastActive: String
+  StartTime: String
+  Version: String
+  OBSVersion: String
+  Region: String
+  Tags: [String]
+  LastError: String
+  IsStreaming: Boolean
+  Health: String
+  UptimeSeconds: Int
+  EventID: String
+  VenueID: String
+  upcomingEvents: [String]
+  upcomingStartTimes: [String]
+  raspLastHeartbeat: String
+  raspUptime: Int
+  raspHealth: String
+  raspStartTime: String
+  raspIPAddress: String
+  raspBroadcastAddress: String
+  raspVersion: String
+  raspEventID: String
+  raspVenueID: String
+  raspUpcomingEvents: [String]
+  raspUpcomingStartTimes: [String]
+  timezone: String
+  raspTimezone: String
+  serverTime: String
+  raspServerTime: String
+}
+
+input CreateAssetInput {
+  userId: ID!
+  assetId: String!
+  assetType: String!
+  orderId: String!
+  ticketId: String
+}
+
+input CreateChatRoomsInput {
+  title: String!
+  description: String
+  avatar: String
+  cover: String
+  createdBy: String!
+}
+
+input CreateCommentInput {
+  postId: String!
+  content: String!
+  postAuthor: String!
+  author: String!
+}
+
+input CreateDirectMessageInput {
+  dmId: String!
+  senderId: String!
+  receiverId: String!
+  content: String!
+  images: [String!]
+  audio: String
+  attachments: [String!]
+  status: Int
+}
+
+input CreateFriendRequestInput {
+  sender: String!
+  receiver: String!
+  createdAt: String!
+  status: String!
+  data: String
+}
+
+input CreateFriendsTableInput {
+  friendId: String!
+  userId: String!
+  requestId: String!
+  notificationId: String!
+}
+
+input CreateNotificationInput {
+  content: String!
+  receiverId: String!
+  senderId: String!
+  createdAt: String!
+  type: String!
+  read: Boolean!
+}
+
+input CreateOrderInput {
+  cart: [CartItemInput]!
+  buyerID: String!
+  paymentID: String!
+  amount: AmountInput!
+  status: Int
+}
+
+input CreateOwnershipInput {
+  sub: ID!
+}
+
+input CreatePaymentInput {
+  id: ID!
+  object: String
+  amount: String!
+  amount_capturable: String
+  amount_details: String
+  amount_received: String
+  application: String
+  application_fee_amount: String
+  automatic_payment_methods: String
+  canceled_at: String
+  cancellation_reason: String
+  capture_method: String
+  client_secret: String
+  confirmation_method: String
+  created: String
+  currency: String
+  customer: String
+  description: String
+  invoice: String
+  last_payment_error: String
+  latest_charge: String
+  livemode: String
+  metadata: PaymentMetadataInput
+  next_action: String
+  on_behalf_of: String
+  payment_method: String
+  payment_method_options: String
+  payment_method_types: String
+  processing: String
+  receipt_email: String
+  review: String
+  setup_future_usage: String
+  shipping: String
+  source: String
+  statement_descriptor: String
+  statement_descriptor_suffix: String
+  status: String!
+  transfer_data: String
+  transfer_group: String
+}
+
+input CreatePostInput {
+  pageId: ID!
+  content: String!
+  images: [String]
+  comments: [String]
+  likes: Int
+  author: String!
+}
+
+input CreatePostLikesInput {
+  postId: String!
+  author: String!
+}
+
+input CreatePromocodeInput {
+  active: Boolean
+  code: String
+  created: String
+  appliesTo: [String]
+  expires_at: String
+  max_redemptions: Int
+  uniquePerUser: Boolean
+  times_redeemed: Int
+  percent_off: Int
+  amount_off: Int
+}
+
+input CreateRecordingInput {
+  test: Boolean
+  status: String
+  playback_id: String
+  max_resolution_tier: String
+  livestreamId: String
+  isLive: Boolean
+  eventId: String
+  venueId: String
+  stageId: String
+}
+
+input CreateStreamConfigurationsInput @aws_api_key {
+  creatorID: String
+  playbackURL: String
+  streamID: String!
+  streamKey: String
+  streamName: String
+  isLive: String
+  streamType: String
+  timestamp: String
+}
+
+input CreateStreamRecordingInput @aws_api_key @aws_cognito_user_pools {
+  test: Boolean
+  status: String
+  playback_id: String
+  max_resolution_tier: String
+  livestreamId: String
+  isLive: Boolean
+  duration: Float
+  eventId: String
+  venueId: String
+  userId: String
+  stageId: String
+  id: ID!
+}
+
+input CreateSupportTicketInput {
+  title: String!
+  description: String!
+  status: String!
+  createdAt: String!
+  updatedAt: String
+  priority: String
+  assignedTo: String
+  userId: ID!
+}
+
+input CreateUserAssetInput {
+  image: [String]
+  materialsID: [String]
+  quantity: String
+  productName: String!
+  assetType: String!
+  price: String!
+  rating: String
+  description: String
+  isNFT: Boolean
+  nftURL: String
+  vendorPageId: String
+  creatorId: String
+  AssetOwnerID: String
+  accessibility: String
+  isDeleted: Boolean
+  id: String!
+  Android_PAKURL: String
+  iOS_PAKURL: String
+  Mac_PAKURL: String
+  Windows_PAKURL: String
+  Linux_PAKURL: String
+  Linux_Dedicated_Server_PAKURL: String
+  umapConfig: UmapConfigInput
+  AssetUMAP_Name: String
+}
+
+input CreateUserInput {
+  createdAt: String
+  sub: String!
+  about: String
+  name: String
+  gender: String
+  email: String!
+  avatar: String
+  cover: String
+  username: String!
+}
+
+input CreateVirtuosoAccountRelationshipsInput {
+  id: String!
+  DateCreated: String
+  FromCreatorID: String
+  OwnedAssetID: String
+  RelationshipType: String
+  ToCreatorID: String
+}
+
+input CreateVirtuosoAccountStatusInput {
+  CreatorID: String!
+  AccountVisibility: String
+  ActiveDLCID: String
+  ActivePerformer: String
+  ActivePlatform: String
+  ActiveStage: String
+  ChatMode: String
+  InGameVisibility: String
+  IsOnline: String
+  UserStatus: String
+  VoiceChatChannelD: String
+}
+
+input CreateVirtuosoActiveServersInput {
+  active_viewers: String
+  awsgamesession: String
+  event_id: String
+  ip_address: String
+  port: String
+  region: String
+  server_id: String!
+  server_number: String
+}
+
+input CreateVirtuosoCreatorsInput {
+  CreatorBio: String
+  CreatorCategory: String
+  CreatorGuestlistID: String
+  CreatorLocationID: String
+  CreatorName: String
+  CreatorImage: String
+  CreatorCover: String
+  CreatorOwnerID: String
+  CreatorStartDate: String
+  CreatorVisibility: String
+  isDisabled: Boolean
+  isDeactivated: Boolean
+}
+
+input CreateVirtuosoEventsInput {
+  EventCategory: String
+  EventCreatorID: String
+  EventDescription: String
+  EventImages: [String]
+  EventLineupID: String
+  EventName: String
+  EventOwnerID: String
+  EventDate: String
+  StartTime: String
+  EndTime: String
+  EventID: String!
+  EventTimeCreated: String
+  GuestlistID: String
+  OrganizerID: String
+  PaymentFlowID: String
+  Price: String
+  Replayable: String
+  ServerInstancingEnabled: String
+  ShowAccessVisibility: String
+  SitemapID: String
+  StreamingConfigurationID: String
+  TicketItemID: String
+  VenueID: String
+  StageStreamMaps: [StageStreamMapInput]
+  isVipEntryAllowed: Boolean
+  vipPrice: String
+  showOrganizer: Boolean
+  showCreator: Boolean
+  isRecording: Boolean
+  isEventLive: Boolean
+  VenueLocation: String
+  EventCreatorPageId: String
+  isRealEvent: Boolean
+  RealTicketLink: String
+  timezone: String
+}
+
+input CreateVirtuosoInvitationsInput {
+  ActiveServerID: String
+  DateCreated: String
+  EventID: String
+  ExpirationLimit: String
+  FromCreatorID: String
+  InvitationType: String
+  ToCreatorID: String
+  VoiceChatChannelD: String
+}
+
+input CreateVirtuosoPageFollowInput {
+  pageType: String!
+  pageId: String!
+  userId: String!
+}
+
+input CreateVirtuosoSiteMapsInput {
+  SiteMapCreatorID: String
+  SiteMapDateCreated: String
+  SiteMapDescription: String
+  SiteMapGuestlistID: String
+  SiteMapID: String!
+  SiteMapImage: String
+  SiteMapName: String
+  SiteMapOwnerID: String
+  SiteMapVenueID: String
+  Android_PAKURL: String
+  iOS_PAKURL: String
+  Mac_PAKURL: String
+  Windows_PAKURL: String
+  Linux_PAKURL: String
+  umapConfig: UmapConfigInput
+  SiteMapUMAP_Name: String
+  price: Int
+}
+
+input CreateVirtuosoStagesInput {
+  StageAuthor: String
+  StageCreatorID: String
+  StageDescription: String
+  StageGuestlistID: String
+  StageID: String!
+  StageImage: String
+  StageIndex: String
+  StageName: String
+  StageOwnerID: String
+  StageUMAP_Name: String
+  VenueID: String
+}
+
+input CreateVirtuosoTicketsInput {
+  EventID: String
+  ItemID: String
+  NumberOfTicket: Int
+  UserID: String
+  PaymentIntentID: String
+  Type: String
+}
+
+input CreateVirtuosoUserAttributesInput {
+  AccountCreationMethod: String
+  AccountVisibility: String
+  ActualName: String
+  AvatarConfiguration: String
+  Bio: String
+  CreatorID: String!
+  DateCreated: String
+  DisplayName: String
+  HeaderImage: String
+  LinkedINEnabled: String
+  LinkedINID: String
+  LinkedINVisibility: String
+  MetaMaskEnabled: String
+  MetaMaskID: String
+  MetaMaskVisibility: String
+  ProfilePicture: String
+  TimeCreated: String
+  TwitterEnabled: String
+  TwitterID: String
+  TwitterVisibility: String
+}
+
+input CreateVirtuosoVendorsInput {
+  GuestlistID: String
+  IsRealWorldVendor: String
+  VendorBio: String
+  VendorCreatorID: String
+  VendorName: String
+  VendorOwnerID: String
+  VendorVisibility: String
+  VendorCover: String
+  VendorImage: String
+  isDeactivated: Boolean
+}
+
+input CreateVirtuosoVenuesInput {
+  Address: String
+  Android_PAKURL: String
+  Bio: String
+  IsRealWorldVenue: String
+  Linux_PAKURL: String
+  Mac_PAKURL: String
+  NumberOfStages: Int
+  StageNames: [String]
+  VenueAuthor: String
+  VenueCreatorID: String
+  VenueImages: [String]
+  VenueName: String
+  VenueProfileImage: String
+  VenueOwnerID: String
+  VenueProfileCover: String
+  VenueProfileImages: String
+  VenueTimeCreated: String
+  VenueUMAP_Name: String
+  Windows_PAKURL: String
+  Linux_Dedicated_Server_PAKURL: String
+  iOS_PAKURL: String
+  isDeactivated: Boolean
+  umapConfig: UmapConfigInput
+  price: Int
+}
+
+input DeleteAgentInput {
+  id: String!
+}
+
+input DeleteAssetInput {
+  userId: ID!
+  assetType: String!
+}
+
+input DeleteChatRoomsInput {
+  id: ID!
+}
+
+input DeleteCommentInput {
+  postId: String!
+  id: String!
+}
+
+input DeleteDirectMessageInput {
+  id: ID!
+}
+
+input DeleteFriendRequestInput {
+  id: ID!
+  notificationId: String!
+}
+
+input DeleteFriendsTableInput {
+  friendId: String!
+  userId: String!
+}
+
+input DeleteNotificationInput {
+  id: ID!
+}
+
+input DeleteOrderInput {
+  id: ID!
+}
+
+input DeleteOwnershipInput {
+  sub: ID!
+}
+
+input DeletePaymentInput {
+  id: ID!
+}
+
+input DeletePostInput {
+  id: ID!
+  pageId: String!
+}
+
+input DeletePostLikesInput {
+  author: String!
+  postId: String!
+}
+
+input DeletePromocodeInput {
+  id: ID!
+}
+
+input DeleteRecordingInput {
+  id: ID!
+}
+
+input DeleteStreamConfigurationsInput {
+  streamID: String!
+}
+
+input DeleteStreamRecordingInput {
+  id: ID!
+}
+
+input DeleteSupportTicketInput {
+  id: ID!
+}
+
+input DeleteUserAssetInput {
+  id: String!
+  userId: String!
+}
+
+input DeleteUserInput {
+  createdAt: String!
+  sub: String!
+}
+
+input DeleteVirtuosoAccountRelationshipsInput {
+  id: String!
+}
+
+input DeleteVirtuosoAccountStatusInput {
+  CreatorID: String!
+}
+
+input DeleteVirtuosoActiveServersInput {
+  server_id: String!
+}
+
+input DeleteVirtuosoCitiesInput {
+  city_id: String!
+}
+
+input DeleteVirtuosoCreatorsInput {
+  CreatorID: String!
+}
+
+input DeleteVirtuosoEventsInput {
+  EventID: String!
+}
+
+input DeleteVirtuosoInvitationsInput {
+  id: String!
+}
+
+input DeleteVirtuosoItemsInput {
+  ItemID: Int!
+}
+
+input DeleteVirtuosoPageFollowInput {
+  pageId: String!
+  userId: String!
+}
+
+input DeleteVirtuosoSiteMapsInput {
+  SiteMapID: String!
+  userId: String!
+}
+
+input DeleteVirtuosoStagesInput {
+  StageID: String!
+}
+
+input DeleteVirtuosoTicketsInput {
+  TicketID: ID!
+}
+
+input DeleteVirtuosoUserAttributesInput {
+  CreatorID: String!
+}
+
+input DeleteVirtuosoVendorsInput {
+  VendorID: String!
+}
+
+input DeleteVirtuosoVenuesInput {
+  VenueID: String!
+  userId: String!
+}
+
+type DirectMessage {
+  id: ID!
+  dmId: String!
+  createdAt: String!
+  senderId: String!
+  sender: User!
+  receiverId: String!
+  content: String!
+  images: [String!]
+  audio: String
+  attachments: [String!]
+  status: Int
+  reported: Boolean
+  reactions: [String!]
+}
+
+type DirectMessageConnection {
+  items: [DirectMessage]
+  nextToken: String
+}
+
+type FriendRequest {
+  id: ID
+  senderId: String!
+  receiverId: String!
+  createdAt: String!
+  status: String!
+  data: String
+}
+
+type FriendRequestConnection {
+  items: [FriendRequest]
+  nextToken: String
+}
+
+type FriendsTable @aws_api_key @aws_cognito_user_pools {
+  friendId: String!
+  userId: String!
+  friendDetails: User
+  createdAt: String!
+}
+
+type FriendsTableConnection @aws_api_key @aws_cognito_user_pools {
+  items: [FriendsTable]
+  nextToken: String
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+type Notification @aws_api_key @aws_cognito_user_pools {
+  id: ID!
+  content: String!
+  receiverId: String!
+  senderId: String!
+  sender: User
+  postId: String
+  createdAt: String!
+  type: String
+  read: Boolean!
+  requestId: String
+}
+
+type NotificationConnection {
+  items: [Notification]
+  nextToken: String
+}
+
+type Order @aws_api_key @aws_cognito_user_pools {
+  id: ID!
+  cart: [CartItem]!
+  purchases: [String]
+  buyerID: String!
+  buyer: User
+  paymentID: String!
+  payment: Payment
+  amount: Amount!
+  promocodeID: String
+  promocode: Promocode
+  status: Int
+  createdAt: String!
+  updatedAt: String!
+}
+
+type OrderConnection @aws_api_key @aws_cognito_user_pools {
+  items: [Order]
+  nextToken: String
+}
+
+type Ownership {
+  sub: ID!
+  venues: VirtuosoVenuesConnection
+  sitemaps: VirtuosoSiteMapsConnection
+  stages: UserAssetConnection
+  avatarClothing: UserAssetConnection
+  inGameItems: UserAssetConnection
+  tickets: VirtuosoTicketsConnection
+}
+
+type OwnershipConnection {
+  items: [Ownership]
+  nextToken: String
+}
+
+type Payment @aws_api_key @aws_cognito_user_pools {
+  id: ID!
+  object: String
+  amount: String!
+  amount_capturable: String
+  amount_details: String
+  amount_received: String
+  application: String
+  application_fee_amount: String
+  automatic_payment_methods: String
+  canceled_at: String
+  cancellation_reason: String
+  capture_method: String
+  client_secret: String
+  confirmation_method: String
+  created: String
+  currency: String
+  customer: String
+  description: String
+  invoice: String
+  last_payment_error: String
+  latest_charge: String
+  livemode: String
+  metadata: PaymentMetadata
+  next_action: String
+  on_behalf_of: String
+  payment_method: String
+  payment_method_options: String
+  payment_method_types: String
+  processing: String
+  receipt_email: String
+  review: String
+  setup_future_usage: String
+  shipping: String
+  source: String
+  statement_descriptor: String
+  statement_descriptor_suffix: String
+  status: String!
+  transfer_data: String
+  transfer_group: String
+}
+
+type PaymentConnection @aws_api_key @aws_cognito_user_pools {
+  items: [Payment]
+  nextToken: String
+}
+
+type PaymentMetadata @aws_api_key @aws_cognito_user_pools {
+  userId: ID!
+  user: User
+  type: String!
+  assetType: String
+  assetID: String
+  cartTotal: Int!
+  discount: Int
+  shippingCharge: Int
+  tax_amount: Int
+  subTotal: Int!
+  times_redeemed: Int
+  taxId: String!
+  promocodeId: String
+  promocode: Promocode
+  order: ID!
+}
+
+input PaymentMetadataInput {
+  userId: ID!
+  type: String!
+  assetType: String
+  assetID: String
+  cartTotal: Int!
+  discount: Int
+  shippingCharge: Int
+  tax_amount: Int!
+  subTotal: Int!
+  times_redeemed: Int
+  taxId: String!
+  promocodeId: String
+  order: ID!
+}
+
+type Post @aws_api_key @aws_cognito_user_pools @aws_iam {
+  id: ID!
+  pageId: ID!
+  creatorPage: VirtuosoCreators
+  venuePage: VirtuosoVenues
+  content: String!
+  images: [String]
+  comments(asc: Boolean): CommentConnection
+  topComments: CommentConnection
+  commentsCount: Int
+  likesCount: Int
+  likes: [PostLikes]
+  author: String!
+  authorDetails: User
+  createdAt: String
+  updatedAt: String
+  shares: Int
+  isLikedByUser(userId: String!): Boolean
+}
+
+type PostConnection @aws_cognito_user_pools @aws_api_key @aws_iam {
+  items: [Post]
+  nextToken: String
+}
+
+type PostLikes @aws_cognito_user_pools @aws_api_key {
+  id: String!
+  postId: String!
+  author: String!
+  authorDetails: User
+  createdAt: String
+}
+
+type PostLikesConnection @aws_cognito_user_pools @aws_api_key {
+  items: [PostLikes]
+  nextToken: String
+}
+
+type Promocode @aws_cognito_user_pools @aws_api_key {
+  id: ID!
+  active: Boolean
+  code: String
+  created: String
+  appliesTo: [String]
+  expires_at: String
+  max_redemptions: Int
+  uniquePerUser: Boolean
+  times_redeemed: Int
+  percent_off: Int
+  amount_off: Int
+}
+
+type PromocodeConnection @aws_cognito_user_pools @aws_api_key {
+  items: [Promocode]
+  nextToken: String
+}
+
+type Recording {
+  id: ID!
+  test: Boolean
+  status: String
+  playback_id: String
+  max_resolution_tier: String
+  livestreamId: String
+  isLive: Boolean
+  eventId: String
+  venueId: String
+  stageId: String
+}
+
+type RecordingConnection {
+  items: [Recording]
+  nextToken: String
+}
+
+input ReplyOnCommentInput {
+  postId: String!
+  parentId: String!
+  content: String!
+  author: String!
+  postAuthor: String!
+}
+
+input SendFriendRequestInput {
+  senderId: String!
+  receiverId: String!
+  data: String
+}
+
+type StageStreamMap @aws_cognito_user_pools @aws_api_key @aws_iam {
+  stageName: String
+  streamID: String
+  stream: StreamConfigurations
+  stageID: String
+  stage: UserAsset
+}
+
+input StageStreamMapInput {
+  stageName: String
+  streamID: String
+  stageID: String
+}
+
+type StreamConfigurations @aws_cognito_user_pools @aws_api_key @aws_iam {
+  creatorID: String
+  playbackURL: String
+  streamID: String!
+  streamKey: String
+  streamName: String
+  streamType: String
+  timestamp: String
+  isLive: String
+  eventId: String
+  event: VirtuosoEvents
+  stageId: String
+  venueId: String
+}
+
+type StreamConfigurationsConnection {
+  items: [StreamConfigurations]
+  nextToken: String
+}
+
+type StreamRecording @aws_api_key @aws_cognito_user_pools {
+  id: ID!
+  test: Boolean
+  status: String
+  playback_id: String
+  max_resolution_tier: String
+  livestreamId: String
+  isLive: Boolean
+  eventId: String
+  duration: Float
+  venueId: String
+  userId: String
+  stageId: String
+}
+
+type StreamRecordingConnection @aws_api_key @aws_cognito_user_pools {
+  items: [StreamRecording]
+  nextToken: String
+}
+
+type SupportTicket {
+  id: ID!
+  title: String!
+  description: String!
+  status: String!
+  createdAt: String!
+  updatedAt: String
+  priority: String
+  assignedTo: String
+  userId: ID!
+}
+
+type SupportTicketConnection {
+  items: [SupportTicket]
+  nextToken: String
+}
+
+input TableAgentFilterInput {
+  id: TableStringFilterInput
+  Hostname: TableStringFilterInput
+  IPAddress: TableStringFilterInput
+  MACAddress: TableStringFilterInput
+  BroadcastAddress: TableStringFilterInput
+  OS: TableStringFilterInput
+  OBSStatus: TableStringFilterInput
+  LastActive: TableStringFilterInput
+  StartTime: TableStringFilterInput
+  Version: TableStringFilterInput
+  OBSVersion: TableStringFilterInput
+  Region: TableStringFilterInput
+  Tags: TableStringFilterInput
+  LastError: TableStringFilterInput
+  IsStreaming: TableBooleanFilterInput
+  Health: TableStringFilterInput
+  UptimeSeconds: TableIntFilterInput
+  EventID: TableStringFilterInput
+  VenueID: TableStringFilterInput
+  upcomingEvents: TableStringFilterInput
+  upcomingStartTimes: TableStringFilterInput
+  raspLastHeartbeat: TableStringFilterInput
+  raspUptime: TableIntFilterInput
+  raspHealth: TableStringFilterInput
+  raspStartTime: TableStringFilterInput
+  raspIPAddress: TableStringFilterInput
+  raspBroadcastAddress: TableStringFilterInput
+  raspVersion: TableStringFilterInput
+  raspEventID: TableStringFilterInput
+  raspVenueID: TableStringFilterInput
+  raspUpcomingEvents: TableStringFilterInput
+  raspUpcomingStartTimes: TableStringFilterInput
+  timezone: TableStringFilterInput
+  raspTimezone: TableStringFilterInput
+  serverTime: TableStringFilterInput
+  raspServerTime: TableStringFilterInput
+}
+
+input TableAssetFilterInput {
+  userId: TableIDFilterInput
+  assetId: TableStringFilterInput
+  assetType: TableStringFilterInput
+}
+
+input TableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input TableChatRoomsFilterInput {
+  id: TableIDFilterInput
+  title: TableStringFilterInput
+  description: TableStringFilterInput
+  avatar: TableStringFilterInput
+  cover: TableStringFilterInput
+  createdBy: TableStringFilterInput
+  createdAt: TableStringFilterInput
+}
+
+input TableCommentFilterInput {
+  postId: TableStringFilterInput
+  createdAt: TableStringFilterInput
+  content: TableStringFilterInput
+  author: TableStringFilterInput
+  replyIds: TableStringFilterInput
+}
+
+input TableDirectMessageFilterInput {
+  id: TableIDFilterInput
+  createdAt: TableStringFilterInput
+  senderId: TableStringFilterInput
+  receiverId: TableStringFilterInput
+  content: TableStringFilterInput
+  images: TableStringFilterInput
+  audio: TableStringFilterInput
+  attachments: TableStringFilterInput
+  status: TableIntFilterInput
+  reported: TableBooleanFilterInput
+}
+
+input TableFloatFilterInput {
+  between: [Float]
+  contains: Float
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+  notContains: Float
+}
+
+input TableFriendRequestFilterInput {
+  id: TableIDFilterInput
+  sender: TableStringFilterInput
+  receiver: TableStringFilterInput
+  createdAt: TableStringFilterInput
+  status: TableStringFilterInput
+  data: TableStringFilterInput
+}
+
+input TableFriendsTableFilterInput {
+  friendId: TableStringFilterInput
+  userId: TableStringFilterInput
+  createdAt: TableStringFilterInput
+}
+
+input TableIDFilterInput {
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+}
+
+input TableIntFilterInput {
+  between: [Int]
+  contains: Int
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+  notContains: Int
+}
+
+input TableNotificationFilterInput {
+  id: TableIDFilterInput
+  content: TableStringFilterInput
+  receiverId: TableStringFilterInput
+  senderId: TableStringFilterInput
+  createdAt: TableStringFilterInput
+  type: TableStringFilterInput
+}
+
+input TableOrderFilterInput {
+  id: TableIDFilterInput
+  cart: TableStringFilterInput
+  purchases: TableStringFilterInput
+  buyerID: TableStringFilterInput
+  paymentIntent: TableStringFilterInput
+  payment: TableStringFilterInput
+  price: TableFloatFilterInput
+  amount_off: TableIntFilterInput
+  percent_Off: TableIntFilterInput
+  status: TableIntFilterInput
+  createdAt: TableStringFilterInput
+  updatedAt: TableStringFilterInput
+}
+
+input TableOwnershipFilterInput {
+  sub: TableIDFilterInput
+}
+
+input TablePaymentFilterInput {
+  id: TableIDFilterInput
+  object: TableStringFilterInput
+  amount: TableStringFilterInput
+  amount_capturable: TableStringFilterInput
+  amount_details: TableStringFilterInput
+  amount_received: TableStringFilterInput
+  application: TableStringFilterInput
+  application_fee_amount: TableStringFilterInput
+  automatic_payment_methods: TableStringFilterInput
+  canceled_at: TableStringFilterInput
+  cancellation_reason: TableStringFilterInput
+  capture_method: TableStringFilterInput
+  client_secret: TableStringFilterInput
+  confirmation_method: TableStringFilterInput
+  created: TableStringFilterInput
+  currency: TableStringFilterInput
+  customer: TableStringFilterInput
+  description: TableStringFilterInput
+  invoice: TableStringFilterInput
+  last_payment_error: TableStringFilterInput
+  latest_charge: TableStringFilterInput
+  livemode: TableStringFilterInput
+  metadata: TableStringFilterInput
+  next_action: TableStringFilterInput
+  on_behalf_of: TableStringFilterInput
+  payment_method: TableStringFilterInput
+  payment_method_options: TableStringFilterInput
+  payment_method_types: TableStringFilterInput
+  processing: TableStringFilterInput
+  receipt_email: TableStringFilterInput
+  review: TableStringFilterInput
+  setup_future_usage: TableStringFilterInput
+  shipping: TableStringFilterInput
+  source: TableStringFilterInput
+  statement_descriptor: TableStringFilterInput
+  statement_descriptor_suffix: TableStringFilterInput
+  status: TableStringFilterInput
+  transfer_data: TableStringFilterInput
+  transfer_group: TableStringFilterInput
+}
+
+input TablePostFilterInput {
+  id: TableIDFilterInput
+  pageId: TableIDFilterInput
+  content: TableStringFilterInput
+  images: TableStringFilterInput
+  comments: TableStringFilterInput
+  likes: TableIntFilterInput
+  author: TableStringFilterInput
+}
+
+input TablePostLikesFilterInput {
+  id: TableStringFilterInput
+  postId: TableStringFilterInput
+  author: TableStringFilterInput
+  createdAt: TableStringFilterInput
+}
+
+input TablePromocodeFilterInput {
+  id: TableIDFilterInput
+  active: TableBooleanFilterInput
+  code: TableStringFilterInput
+  created: TableStringFilterInput
+  appliesTo: TableStringFilterInput
+  expires_at: TableStringFilterInput
+  max_redemptions: TableIntFilterInput
+  uniquePerUser: TableBooleanFilterInput
+  times_redeemed: TableIntFilterInput
+  percent_off: TableIntFilterInput
+  amount_off: TableIntFilterInput
+}
+
+input TableRecordingFilterInput {
+  id: TableIDFilterInput
+  test: TableBooleanFilterInput
+  status: TableStringFilterInput
+  playback_id: TableStringFilterInput
+  max_resolution_tier: TableStringFilterInput
+  livestreamId: TableStringFilterInput
+  isLive: TableBooleanFilterInput
+  eventId: TableStringFilterInput
+  venueId: TableStringFilterInput
+  stageId: TableStringFilterInput
+}
+
+input TableStreamConfigurationsFilterInput {
+  creatorID: TableStringFilterInput
+  playbackURL: TableStringFilterInput
+  streamID: TableStringFilterInput
+  streamKey: TableStringFilterInput
+  streamName: TableStringFilterInput
+  streamType: TableStringFilterInput
+  timestamp: TableStringFilterInput
+}
+
+input TableStreamRecordingFilterInput {
+  id: TableIDFilterInput
+  test: TableBooleanFilterInput
+  status: TableStringFilterInput
+  playback_id: TableStringFilterInput
+  max_resolution_tier: TableStringFilterInput
+  livestreamId: TableStringFilterInput
+  isLive: TableBooleanFilterInput
+  eventId: TableStringFilterInput
+  venueId: TableStringFilterInput
+  userId: TableStringFilterInput
+  stageId: TableStringFilterInput
+}
+
+input TableStringFilterInput {
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+}
+
+input TableSupportTicketFilterInput {
+  id: TableIDFilterInput
+  title: TableStringFilterInput
+  description: TableStringFilterInput
+  status: TableStringFilterInput
+  createdAt: TableStringFilterInput
+  updatedAt: TableStringFilterInput
+  priority: TableStringFilterInput
+  assignedTo: TableStringFilterInput
+  userId: TableIDFilterInput
+}
+
+input TableUserAssetFilterInput {
+  id: TableStringFilterInput
+  image: TableStringFilterInput
+  materialsID: TableStringFilterInput
+  quantity: TableStringFilterInput
+  productName: TableStringFilterInput
+  assetType: TableStringFilterInput
+  price: TableStringFilterInput
+  rating: TableStringFilterInput
+  description: TableStringFilterInput
+  isNFT: TableBooleanFilterInput
+  nftURL: TableStringFilterInput
+  vendorPageId: TableStringFilterInput
+  creatorId: TableStringFilterInput
+  accessibility: TableStringFilterInput
+  isDeleted: TableBooleanFilterInput
+}
+
+input TableUserFilterInput {
+  createdAt: TableStringFilterInput
+  sub: TableStringFilterInput
+  about: TableStringFilterInput
+  name: TableStringFilterInput
+  gender: TableStringFilterInput
+  email: TableStringFilterInput
+  picture: TableStringFilterInput
+  cover: TableStringFilterInput
+}
+
+input TableVirtuosoAccountRelationshipsFilterInput {
+  id: TableStringFilterInput
+  DateCreated: TableStringFilterInput
+  FromCreatorID: TableStringFilterInput
+  OwnedAssetID: TableStringFilterInput
+  RelationshipType: TableStringFilterInput
+  ToCreatorID: TableStringFilterInput
+}
+
+input TableVirtuosoAccountStatusFilterInput {
+  CreatorID: TableStringFilterInput
+  AccountVisibility: TableStringFilterInput
+  ActiveDLCID: TableStringFilterInput
+  ActivePerformer: TableStringFilterInput
+  ActivePlatform: TableStringFilterInput
+  ActiveStage: TableStringFilterInput
+  ChatMode: TableStringFilterInput
+  InGameVisibility: TableStringFilterInput
+  IsOnline: TableStringFilterInput
+  UserStatus: TableStringFilterInput
+  VoiceChatChannelD: TableStringFilterInput
+}
+
+input TableVirtuosoActiveServersFilterInput {
+  active_viewers: TableStringFilterInput
+  awsgamesession: TableStringFilterInput
+  event_id: TableStringFilterInput
+  ip_address: TableStringFilterInput
+  port: TableStringFilterInput
+  region: TableStringFilterInput
+  server_id: TableStringFilterInput
+  server_number: TableStringFilterInput
+}
+
+input TableVirtuosoCreatorsFilterInput {
+  CreatorBio: TableStringFilterInput
+  CreatorCategory: TableStringFilterInput
+  CreatorGuestlistID: TableStringFilterInput
+  CreatorID: TableStringFilterInput
+  CreatorLocationID: TableStringFilterInput
+  CreatorName: TableStringFilterInput
+  CreatorOwnerID: TableStringFilterInput
+  CreatorStartDate: TableStringFilterInput
+  CreatorVisibility: TableStringFilterInput
+  isDisabled: TableBooleanFilterInput
+  isDeactivated: TableBooleanFilterInput
+}
+
+input TableVirtuosoEventsFilterInput {
+  EventCategory: TableStringFilterInput
+  EventCreatorID: TableStringFilterInput
+  EventDescription: TableStringFilterInput
+  EventID: TableStringFilterInput
+  EventImage: TableStringFilterInput
+  EventLineupID: TableStringFilterInput
+  EventName: TableStringFilterInput
+  EventOwnerID: TableStringFilterInput
+  EventTimeCreated: TableStringFilterInput
+  GuestlistID: TableStringFilterInput
+  OrganizerID: TableStringFilterInput
+  PaymentFlowID: TableStringFilterInput
+  Replayable: TableStringFilterInput
+  ServerInstancingEnabled: TableStringFilterInput
+  ShowAccessVisibility: TableStringFilterInput
+  SitemapID: TableStringFilterInput
+  StreamingConfigurationID: TableStringFilterInput
+  TicketItemID: TableStringFilterInput
+  VenueID: TableStringFilterInput
+}
+
+input TableVirtuosoInvitationsFilterInput {
+  id: TableStringFilterInput
+  ActiveServerID: TableStringFilterInput
+  DateCreated: TableStringFilterInput
+  EventID: TableStringFilterInput
+  ExpirationLimit: TableStringFilterInput
+  FromCreatorID: TableStringFilterInput
+  InvitationType: TableStringFilterInput
+  ToCreatorID: TableStringFilterInput
+  VoiceChatChannelD: TableStringFilterInput
+}
+
+input TableVirtuosoPageFollowFilterInput {
+  id: TableIDFilterInput
+  pageType: TableStringFilterInput
+  pageId: TableStringFilterInput
+  userId: TableStringFilterInput
+}
+
+input TableVirtuosoSiteMapsFilterInput {
+  SiteMapCreatorID: TableStringFilterInput
+  SiteMapDateCreated: TableStringFilterInput
+  SiteMapDescription: TableStringFilterInput
+  SiteMapGuestlistID: TableStringFilterInput
+  SiteMapID: TableStringFilterInput
+  SiteMapImage: TableStringFilterInput
+  SiteMapName: TableStringFilterInput
+  SiteMapOwnerID: TableStringFilterInput
+  SiteMapVenueID: TableStringFilterInput
+}
+
+input TableVirtuosoStagesFilterInput {
+  StageAuthor: TableStringFilterInput
+  StageCreatorID: TableStringFilterInput
+  StageDescription: TableStringFilterInput
+  StageGuestlistID: TableStringFilterInput
+  StageID: TableStringFilterInput
+  StageImage: TableStringFilterInput
+  StageIndex: TableStringFilterInput
+  StageName: TableStringFilterInput
+  StageOwnerID: TableStringFilterInput
+  StageUMAP_Name: TableStringFilterInput
+  VenueID: TableStringFilterInput
+}
+
+input TableVirtuosoTicketsFilterInput {
+  TicketID: TableIDFilterInput
+  EventID: TableStringFilterInput
+  ItemID: TableStringFilterInput
+  NumberOfTicket: TableIntFilterInput
+  UserID: TableStringFilterInput
+  PaymentIntentID: TableStringFilterInput
+  CreatedAt: TableStringFilterInput
+  Type: TableStringFilterInput
+}
+
+input TableVirtuosoUserAttributesFilterInput {
+  AccountCreationMethod: TableStringFilterInput
+  AccountVisibility: TableStringFilterInput
+  ActualName: TableStringFilterInput
+  AvatarConfiguration: TableStringFilterInput
+  Bio: TableStringFilterInput
+  CreatorID: TableStringFilterInput
+  DateCreated: TableStringFilterInput
+  DisplayName: TableStringFilterInput
+  HeaderImage: TableStringFilterInput
+  LinkedINEnabled: TableStringFilterInput
+  LinkedINID: TableStringFilterInput
+  LinkedINVisibility: TableStringFilterInput
+  MetaMaskEnabled: TableStringFilterInput
+  MetaMaskID: TableStringFilterInput
+  MetaMaskVisibility: TableStringFilterInput
+  ProfilePicture: TableStringFilterInput
+  TimeCreated: TableStringFilterInput
+  TwitterEnabled: TableStringFilterInput
+  TwitterID: TableStringFilterInput
+  TwitterVisibility: TableStringFilterInput
+}
+
+input TableVirtuosoVendorsFilterInput {
+  GuestlistID: TableStringFilterInput
+  IsRealWorldVendor: TableStringFilterInput
+  VendorBio: TableStringFilterInput
+  VendorCreatorID: TableStringFilterInput
+  VendorID: TableStringFilterInput
+  VendorName: TableStringFilterInput
+  VendorOwnerID: TableStringFilterInput
+  VendorVisibility: TableStringFilterInput
+  isDeactivated: TableBooleanFilterInput
+}
+
+input TableVirtuosoVenuesFilterInput {
+  Address: TableStringFilterInput
+  Android_PAKURL: TableStringFilterInput
+  Bio: TableStringFilterInput
+  IsRealWorldVenue: TableStringFilterInput
+  Linux_PAKURL: TableStringFilterInput
+  Mac_PAKURL: TableStringFilterInput
+  NumberOfStages: TableIntFilterInput
+  VenueAuthor: TableStringFilterInput
+  VenueCreatorID: TableStringFilterInput
+  VenueID: TableStringFilterInput
+  VenueName: TableStringFilterInput
+  VenueOwnerID: TableStringFilterInput
+  VenueProfileCover: TableStringFilterInput
+  VenueProfileImages: TableStringFilterInput
+  VenueTimeCreated: TableStringFilterInput
+  VenueUMAP_Name: TableStringFilterInput
+  Windows_PAKURL: TableStringFilterInput
+  iOS_PAKURL: TableStringFilterInput
+  isDeactivated: TableBooleanFilterInput
+}
+
+type UmapConfig @aws_cognito_user_pools @aws_iam @aws_api_key {
+  linux: String
+  windows: String
+  mac: String
+  ios: String
+  android: String
+  linux_dedicated: String
+}
+
+input UmapConfigInput {
+  linux: String
+  windows: String
+  mac: String
+  ios: String
+  android: String
+  linux_dedicated: String
+}
+
+input UpdateAgentInput {
+  id: String!
+  Hostname: String
+  IPAddress: String
+  MACAddress: String
+  BroadcastAddress: String
+  OS: String
+  OBSStatus: String
+  LastActive: String
+  StartTime: String
+  Version: String
+  OBSVersion: String
+  Region: String
+  Tags: [String]
+  LastError: String
+  IsStreaming: Boolean
+  Health: String
+  UptimeSeconds: Int
+  EventID: String
+  VenueID: String
+  upcomingEvents: [String]
+  upcomingStartTimes: [String]
+  raspLastHeartbeat: String
+  raspUptime: Int
+  raspHealth: String
+  raspStartTime: String
+  raspIPAddress: String
+  raspBroadcastAddress: String
+  raspVersion: String
+  raspEventID: String
+  raspVenueID: String
+  raspUpcomingEvents: [String]
+  raspUpcomingStartTimes: [String]
+  timezone: String
+  raspTimezone: String
+  serverTime: String
+  raspServerTime: String
+}
+
+input UpdateAssetInput {
+  userId: ID!
+  assetId: String
+  assetType: String!
+  orderId: String!
+}
+
+input UpdateChatRoomsInput {
+  id: ID!
+  title: String
+  description: String
+  avatar: String
+  cover: String
+  createdBy: String
+  createdAt: String
+}
+
+input UpdateCommentInput {
+  postId: String!
+  createdAt: String
+  content: String
+  author: String
+  replyIds: [String]
+}
+
+input UpdateDirectMessageInput {
+  id: ID!
+  dmId: String!
+  createdAt: String
+  senderId: String
+  receiverId: String
+  content: String
+  images: [String!]
+  audio: String
+  attachments: [String!]
+  status: Int
+  reported: Boolean
+  reactions: [String!]
+}
+
+input UpdateFriendRequestInput {
+  id: ID!
+  sender: String
+  receiver: String
+  createdAt: String
+  status: String
+  data: String
+}
+
+input UpdateFriendsTableInput {
+  friendId: String!
+  userId: String!
+  createdAt: String
+}
+
+input UpdateNotificationInput {
+  id: ID!
+  content: String
+  receiverId: String
+  senderId: String
+  createdAt: String
+  type: String
+  read: Boolean
+}
+
+input UpdateOrderInput {
+  id: ID!
+  cart: [CartItemInput]
+  buyerID: String
+  paymentID: String
+  amount: AmountInput
+  status: Int
+}
+
+input UpdateOwnershipInput {
+  sub: ID!
+}
+
+input UpdatePaymentInput {
+  id: ID!
+  object: String
+  amount: String
+  amount_capturable: String
+  amount_details: String
+  amount_received: String
+  application: String
+  application_fee_amount: String
+  automatic_payment_methods: String
+  canceled_at: String
+  cancellation_reason: String
+  capture_method: String
+  client_secret: String
+  confirmation_method: String
+  created: String
+  currency: String
+  customer: String
+  description: String
+  invoice: String
+  last_payment_error: String
+  latest_charge: String
+  livemode: String
+  metadata: PaymentMetadataInput
+  next_action: String
+  on_behalf_of: String
+  payment_method: String
+  payment_method_options: String
+  payment_method_types: String
+  processing: String
+  receipt_email: String
+  review: String
+  setup_future_usage: String
+  shipping: String
+  source: String
+  statement_descriptor: String
+  statement_descriptor_suffix: String
+  status: String
+  transfer_data: String
+  transfer_group: String
+}
+
+input UpdatePostInput {
+  id: ID!
+  pageId: ID!
+  content: String
+  images: [String]
+  comments: [String]
+  likes: Int
+  author: String
+  shares: Int
+}
+
+input UpdatePostLikesInput {
+  id: String!
+  postId: String!
+  author: String
+  createdAt: String
+}
+
+input UpdatePromocodeInput {
+  id: ID!
+  active: Boolean
+  code: String
+  created: String
+  appliesTo: [String]
+  expires_at: String
+  max_redemptions: Int
+  uniquePerUser: Boolean
+  times_redeemed: Int
+  percent_off: Int
+  amount_off: Int
+}
+
+input UpdateRecordingInput {
+  id: ID!
+  test: Boolean
+  status: String
+  playback_id: String
+  max_resolution_tier: String
+  livestreamId: String
+  isLive: Boolean
+  eventId: String
+  venueId: String
+  stageId: String
+}
+
+input UpdateStreamConfigurationsInput {
+  creatorID: String
+  playbackURL: String
+  streamID: String!
+  streamKey: String
+  streamName: String
+  streamType: String
+  timestamp: String
+  eventId: String
+  isLive: Boolean
+  stageId: String
+  venueId: String
+}
+
+input UpdateStreamRecordingInput {
+  id: ID!
+  test: Boolean
+  status: String
+  playback_id: String
+  max_resolution_tier: String
+  livestreamId: String
+  isLive: Boolean
+  duration: Float
+  eventId: String
+  venueId: String
+  userId: String
+  stageId: String
+}
+
+input UpdateSupportTicketInput {
+  id: ID!
+  title: String
+  description: String
+  status: String
+  createdAt: String
+  updatedAt: String
+  priority: String
+  assignedTo: String
+  userId: ID
+}
+
+input UpdateUserAssetInput {
+  id: String!
+  image: [String]
+  materialsID: [String]
+  quantity: String
+  productName: String
+  assetType: String
+  price: String
+  rating: String
+  description: String
+  isNFT: Boolean
+  nftURL: String
+  vendorPageId: String
+  creatorId: String
+  AssetOwnerID: String
+  accessibility: String
+  isDeleted: Boolean
+  Android_PAKURL: String
+  iOS_PAKURL: String
+  Mac_PAKURL: String
+  Windows_PAKURL: String
+  Linux_PAKURL: String
+  Linux_Dedicated_Server_PAKURL: String
+  umapConfig: UmapConfigInput
+  AssetUMAP_Name: String
+}
+
+input UpdateUserInput {
+  sub: String!
+  about: String
+  name: String
+  gender: String
+  email: String
+  avatar: String
+  avatar_config: String
+  username: String
+  cover: String
+  subscriptionStatus: String
+  subscriptionId: String
+  connectedStripeAccountId: String
+  subscriptionStart: String
+  subscriptionEnd: String
+  trialStart: String
+  trialEnd: String
+  addresses: [ContactInput]
+}
+
+input UpdateVirtuosoAccountRelationshipsInput {
+  id: String!
+  DateCreated: String
+  FromCreatorID: String
+  OwnedAssetID: String
+  RelationshipType: String
+  ToCreatorID: String
+}
+
+input UpdateVirtuosoAccountStatusInput {
+  CreatorID: String!
+  AccountVisibility: String
+  ActiveDLCID: String
+  ActivePerformer: String
+  ActivePlatform: String
+  ActiveStage: String
+  ChatMode: String
+  InGameVisibility: String
+  IsOnline: String
+  UserStatus: String
+  VoiceChatChannelD: String
+}
+
+input UpdateVirtuosoActiveServersInput {
+  active_viewers: String
+  awsgamesession: String
+  event_id: String
+  ip_address: String
+  port: String
+  region: String
+  server_id: String!
+  server_number: String
+}
+
+input UpdateVirtuosoCreatorsInput {
+  CreatorBio: String
+  CreatorCategory: String
+  CreatorGuestlistID: String
+  CreatorID: String!
+  CreatorLocationID: String
+  CreatorName: String
+  CreatorImage: String
+  CreatorCover: String
+  CreatorOwnerID: String
+  CreatorStartDate: String
+  CreatorVisibility: String
+  isDisabled: Boolean
+  isDeactivated: Boolean
+}
+
+input UpdateVirtuosoEventsInput {
+  EventCategory: String
+  EventCreatorID: String
+  EventDescription: String
+  EventID: String!
+  isLive: Boolean
+  EventImages: [String]
+  EventLineupID: String
+  EventName: String
+  EventDate: String
+  StartTime: String
+  EndTime: String
+  EventOwnerID: String
+  EventTimeCreated: String
+  GuestlistID: String
+  OrganizerID: String
+  PaymentFlowID: String
+  Price: String
+  Replayable: String
+  ServerInstancingEnabled: String
+  ShowAccessVisibility: String
+  SitemapID: String
+  StreamingConfigurationID: String
+  TicketItemID: String
+  VenueID: String
+  StageStreamMaps: [StageStreamMapInput]
+  isVipEntryAllowed: Boolean
+  vipPrice: String
+  showOrganizer: Boolean
+  showCreator: Boolean
+  isRecording: Boolean
+  isEventLive: Boolean
+  VenueLocation: String
+  isRealEvent: Boolean
+  RealTicketLink: String
+  timezone: String
+  defaultPlaybackId: String
+}
+
+input UpdateVirtuosoInvitationsInput {
+  id: String!
+  ActiveServerID: String
+  DateCreated: String
+  EventID: String
+  ExpirationLimit: String
+  FromCreatorID: String
+  InvitationType: String
+  ToCreatorID: String
+  VoiceChatChannelD: String
+}
+
+input UpdateVirtuosoSiteMapsInput {
+  SiteMapCreatorID: String
+  SiteMapDateCreated: String
+  SiteMapDescription: String
+  SiteMapGuestlistID: String
+  SiteMapID: String!
+  SiteMapImage: String
+  SiteMapName: String
+  SiteMapOwnerID: String
+  SiteMapVenueID: String
+  umapConfig: UmapConfigInput
+  Android_PAKURL: String
+  Linux_PAKURL: String
+  Mac_PAKURL: String
+  Windows_PAKURL: String
+  iOS_PAKURL: String
+  SiteMapUMAP_Name: String
+  price: Int
+}
+
+input UpdateVirtuosoStagesInput {
+  StageAuthor: String
+  StageCreatorID: String
+  StageDescription: String
+  StageGuestlistID: String
+  StageID: String!
+  StageImage: String
+  StageIndex: String
+  StageName: String
+  StageOwnerID: String
+  StageUMAP_Name: String
+  VenueID: String
+}
+
+input UpdateVirtuosoTicketsInput {
+  TicketID: ID!
+  EventID: String
+  ItemID: String
+  NumberOfTicket: Int
+  UserID: String
+  PaymentIntentID: String
+  CreatedAt: String
+  Type: String
+}
+
+input UpdateVirtuosoUserAttributesInput {
+  AccountCreationMethod: String
+  AccountVisibility: String
+  ActualName: String
+  AvatarConfiguration: String
+  Bio: String
+  CreatorID: String!
+  DateCreated: String
+  DisplayName: String
+  HeaderImage: String
+  LinkedINEnabled: String
+  LinkedINID: String
+  LinkedINVisibility: String
+  MetaMaskEnabled: String
+  MetaMaskID: String
+  MetaMaskVisibility: String
+  ProfilePicture: String
+  TimeCreated: String
+  TwitterEnabled: String
+  TwitterID: String
+  TwitterVisibility: String
+}
+
+input UpdateVirtuosoVendorsInput {
+  GuestlistID: String
+  IsRealWorldVendor: String
+  VendorBio: String
+  VendorCreatorID: String
+  VendorID: String!
+  VendorName: String
+  VendorOwnerID: String
+  VendorVisibility: String
+  VendorImage: String
+  VendorCover: String
+  isDeactivated: Boolean
+}
+
+input UpdateVirtuosoVenuesInput {
+  Address: String
+  Android_PAKURL: String
+  Bio: String
+  IsRealWorldVenue: String
+  Linux_PAKURL: String
+  Mac_PAKURL: String
+  NumberOfStages: Int
+  VenueAuthor: String
+  Linux_Dedicated_Server_PAKURL: String
+  VenueCreatorID: String
+  VenueID: String!
+  VenueImages: [String]
+  StageNames: [String]
+  VenueName: String
+  VenueProfileImage: String
+  VenueOwnerID: String
+  VenueProfileCover: String
+  VenueProfileImages: String
+  VenueTimeCreated: String
+  VenueUMAP_Name: String
+  Windows_PAKURL: String
+  iOS_PAKURL: String
+  isDeactivated: Boolean
+  umapConfig: UmapConfigInput
+  price: Int
+}
+
+type User @aws_api_key @aws_cognito_user_pools @aws_iam {
+  createdAt: String
+  sub: String!
+  about: String
+  name: String
+  gender: String
+  email: String!
+  avatar_config: String
+  addresses: [Contact]
+  avatar: String
+  username: String!
+  subscriptionId: String
+  subscriptionStatus: String
+  friends: FriendsTableConnection
+  posts: PostConnection
+  cover: String
+  savedPosts: [Post]
+  accountStatus: VirtuosoAccountStatus
+  isFriendOfUser(friendId: String!): Boolean
+  hasSentRequestToUser(receiverId: String!): Boolean
+  stripeCustomerId: String
+  connectedStripeAccountId: String
+  subscriptionStart: String
+  subscriptionEnd: String
+  trialStart: String
+  trialEnd: String
+}
+
+type UserAsset @aws_cognito_user_pools @aws_api_key @aws_iam {
+  id: String!
+  image: [String]
+  materialsID: [String]
+  quantity: String
+  productName: String!
+  assetType: String!
+  price: String!
+  rating: String
+  description: String
+  isNFT: Boolean
+  nftURL: String
+  vendorPageId: String
+  vendor: VirtuosoVendors
+  creatorId: String
+  AssetOwnerID: String
+  accessibility: String
+  isDeleted: Boolean
+  Android_PAKURL: String
+  Mac_PAKURL: String
+  Windows_PAKURL: String
+  Linux_PAKURL: String
+  iOS_PAKURL: String
+  AssetUMAP_Name: String
+  Linux_Dedicated_Server_PAKURL: String
+  umapConfig: UmapConfig
+  isOwnedByUser(sub: String): Boolean
+}
+
+type UserAssetConnection @aws_cognito_user_pools @aws_api_key {
+  items: [UserAsset]
+  nextToken: String
+}
+
+type UserConnection {
+  items: [User]
+  nextToken: String
+}
+
+type VirtuosoAccountRelationships {
+  id: String!
+  DateCreated: String
+  FromCreatorID: String
+  OwnedAssetID: String
+  RelationshipType: String
+  ToCreatorID: String
+}
+
+type VirtuosoAccountRelationshipsConnection {
+  items: [VirtuosoAccountRelationships]
+  nextToken: String
+}
+
+type VirtuosoAccountStatus {
+  CreatorID: String!
+  AccountVisibility: String
+  ActiveDLCID: String
+  ActivePerformer: String
+  ActivePlatform: String
+  ActiveStage: String
+  ChatMode: String
+  InGameVisibility: String
+  IsOnline: String
+  UserStatus: String
+  VoiceChatChannelD: String
+}
+
+type VirtuosoAccountStatusConnection {
+  items: [VirtuosoAccountStatus]
+  nextToken: String
+}
+
+type VirtuosoActiveServers @aws_cognito_user_pools @aws_iam @aws_api_key {
+  active_viewers: String
+  awsgamesession: String
+  event_id: String
+  ip_address: String
+  port: String
+  region: String
+  server_id: String!
+  server_number: String
+}
+
+type VirtuosoActiveServersConnection
+  @aws_cognito_user_pools
+  @aws_iam
+  @aws_api_key {
+  items: [VirtuosoActiveServers]
+  nextToken: String
+}
+
+type VirtuosoCreators @aws_cognito_user_pools @aws_api_key @aws_iam {
+  CreatorBio: String
+  CreatorCategory: String
+  CreatorGuestlistID: String
+  CreatorID: String!
+  CreatorLocationID: String
+  CreatorName: String
+  CreatorImage: String
+  CreatorCover: String
+  CreatorOwnerID: String
+  CreatorStartDate: String
+  CreatorVisibility: String
+  posts(asc: Boolean): PostConnection
+  followerCount: Int
+  followers(limit: Int, nextToken: String): VirtuosoPageFollowConnection
+  isFollowedByUser(userId: String!): Boolean
+  isDisabled: Boolean
+  isDeactivated: Boolean
+}
+
+type VirtuosoCreatorsConnection {
+  items: [VirtuosoCreators]
+  nextToken: String
+}
+
+type VirtuosoEvents @aws_cognito_user_pools @aws_api_key @aws_iam {
+  EventCategory: String
+  EventCreatorPageId: String
+  creatorPage: VirtuosoCreators
+  EventCreatorID: String
+  eventCreator: User
+  EventDescription: String
+  EventID: String!
+  isLive: Boolean
+  EventImages: [String]
+  EventLineupID: String
+  EventName: String
+  EventOwnerID: String
+  EventDate: String
+  StartTime: String
+  EndTime: String
+  eventOwner: User
+  EventTimeCreated: String
+  GuestlistID: String
+  OrganizerID: String
+  organizer: User
+  PaymentFlowID: String
+  Price: String
+  Replayable: String
+  ServerInstancingEnabled: String
+  ShowAccessVisibility: String
+  SitemapID: String
+  sitemap: VirtuosoSiteMaps
+  StreamingConfigurationID: String
+  streamingConfiguration: StreamConfigurations
+  TicketItemID: String
+  VenueID: String
+  venue: VirtuosoVenues
+  StageStreamMaps: [StageStreamMap]
+  isVipEntryAllowed: Boolean
+  isTicketOwnedByUser(sub: String): Boolean
+  vipPrice: String
+  showCreator: Boolean
+  showOrganizer: Boolean
+  isRecording: Boolean
+  isEventLive: Boolean
+  VenueLocation: String
+  isRealEvent: Boolean
+  RealTicketLink: String
+  timezone: String
+  defaultPlaybackId: String
+  createdAt: String
+  updatedAt: String
+}
+
+type VirtuosoEventsConnection @aws_cognito_user_pools @aws_api_key {
+  items: [VirtuosoEvents]
+  nextToken: String
+}
+
+type VirtuosoInvitations {
+  id: String!
+  ActiveServerID: String
+  activeServer: VirtuosoActiveServers
+  DateCreated: String
+  EventID: String
+  event: VirtuosoEvents
+  ExpirationLimit: String
+  FromCreatorID: String
+  fromCreator: User
+  InvitationType: String
+  ToCreatorID: String
+  VoiceChatChannelD: String
+}
+
+type VirtuosoInvitationsConnection {
+  items: [VirtuosoInvitations]
+  nextToken: String
+}
+
+type VirtuosoPageFollow @aws_cognito_user_pools @aws_api_key {
+  pageType: String!
+  pageId: String!
+  userId: String!
+  user: User
+}
+
+type VirtuosoPageFollowConnection @aws_cognito_user_pools @aws_api_key {
+  items: [VirtuosoPageFollow]
+  nextToken: String
+}
+
+type VirtuosoSiteMaps @aws_cognito_user_pools @aws_api_key @aws_iam {
+  SiteMapCreatorID: String
+  SiteMapDateCreated: String
+  SiteMapDescription: String
+  SiteMapGuestlistID: String
+  SiteMapID: String!
+  SiteMapImage: String
+  SiteMapName: String
+  SiteMapOwnerID: String
+  SiteMapVenueID: String
+  Android_PAKURL: String
+  iOS_PAKURL: String
+  Mac_PAKURL: String
+  Windows_PAKURL: String
+  Linux_PAKURL: String
+  SiteMapUMAP_Name: String
+  umapConfig: UmapConfig
+  venue: VirtuosoVenues
+  isOwnedByUser(sub: String): Boolean
+  price: Int
+  createdAt: String!
+  updatedAt: String!
+}
+
+type VirtuosoSiteMapsConnection {
+  items: [VirtuosoSiteMaps]
+  nextToken: String
+}
+
+type VirtuosoStages {
+  StageAuthor: String
+  StageCreatorID: String
+  StageDescription: String
+  StageGuestlistID: String
+  StageID: String!
+  StageImage: String
+  StageIndex: String
+  StageName: String
+  StageOwnerID: String
+  StageUMAP_Name: String
+  VenueID: String
+}
+
+type VirtuosoStagesConnection {
+  items: [VirtuosoStages]
+  nextToken: String
+}
+
+type VirtuosoTickets @aws_api_key @aws_cognito_user_pools {
+  TicketID: ID!
+  EventID: String
+  Event: VirtuosoEvents
+  Price: String
+  ItemID: String
+  NumberOfTicket: Int
+  UserID: String
+  PaymentIntentID: String
+  createdAt: String
+  Type: String
+}
+
+type VirtuosoTicketsConnection {
+  items: [VirtuosoTickets]
+  nextToken: String
+}
+
+type VirtuosoUserAttributes {
+  AccountCreationMethod: String
+  AccountVisibility: String
+  ActualName: String
+  AvatarConfiguration: String
+  Bio: String
+  CreatorID: String!
+  DateCreated: String
+  DisplayName: String
+  HeaderImage: String
+  LinkedINEnabled: String
+  LinkedINID: String
+  LinkedINVisibility: String
+  MetaMaskEnabled: String
+  MetaMaskID: String
+  MetaMaskVisibility: String
+  ProfilePicture: String
+  TimeCreated: String
+  TwitterEnabled: String
+  TwitterID: String
+  TwitterVisibility: String
+}
+
+type VirtuosoUserAttributesConnection {
+  items: [VirtuosoUserAttributes]
+  nextToken: String
+}
+
+type VirtuosoVendors @aws_cognito_user_pools @aws_api_key {
+  GuestlistID: String
+  IsRealWorldVendor: String
+  VendorBio: String
+  VendorCreatorID: String
+  VendorID: String!
+  VendorName: String
+  VendorOwnerID: String
+  VendorVisibility: String
+  VendorCover: String
+  VendorImage: String
+  followerCount: Int
+  products: UserAssetConnection
+  followers(limit: Int, nextToken: String): VirtuosoPageFollowConnection
+  isFollowedByUser(userId: String!): Boolean
+  isDeactivated: Boolean
+}
+
+type VirtuosoVendorsConnection {
+  items: [VirtuosoVendors]
+  nextToken: String
+}
+
+type VirtuosoVenues @aws_cognito_user_pools @aws_api_key @aws_iam {
+  Address: String
+  Android_PAKURL: String
+  Bio: String
+  price: Int
+  IsRealWorldVenue: String
+  Linux_PAKURL: String
+  Mac_PAKURL: String
+  NumberOfStages: Int
+  VenueAuthor: String
+  VenueCreatorID: String
+  VenueID: String!
+  VenueImages: [String]
+  StageNames: [String]
+  VenueName: String
+  VenueProfileImage: String
+  VenueOwnerID: String
+  VenueProfileCover: String
+  VenueProfileImages: String
+  VenueTimeCreated: String
+  VenueUMAP_Name: String
+  Windows_PAKURL: String
+  iOS_PAKURL: String
+  Linux_Dedicated_Server_PAKURL: String
+  posts(asc: Boolean): PostConnection
+  followerCount: Int
+  followers(limit: Int, nextToken: String): VirtuosoPageFollowConnection
+  isFollowedByUser(userId: String!): Boolean
+  isOwnedByUser(sub: String): Boolean
+  isDeactivated: Boolean
+}
+
+type VirtuosoVenuesConnection {
+  items: [VirtuosoVenues]
+  nextToken: String
+}
+
+type Mutation {
+  createStreamConfigurations(
+    input: CreateStreamConfigurationsInput!
+  ): StreamConfigurations @aws_api_key
+  createVirtuosoActiveServers(
+    input: CreateVirtuosoActiveServersInput!
+  ): VirtuosoActiveServers @aws_cognito_user_pools @aws_iam @aws_api_key
+  createVirtuosoCreators(input: CreateVirtuosoCreatorsInput!): VirtuosoCreators
+  createVirtuosoEvents(input: CreateVirtuosoEventsInput!): VirtuosoEvents
+  createVirtuosoSiteMaps(input: CreateVirtuosoSiteMapsInput!): VirtuosoSiteMaps
+  createVirtuosoStages(input: CreateVirtuosoStagesInput!): VirtuosoStages
+  createVirtuosoUserAttributes(
+    input: CreateVirtuosoUserAttributesInput!
+  ): VirtuosoUserAttributes
+  createVirtuosoVendors(input: CreateVirtuosoVendorsInput!): VirtuosoVendors
+  createVirtuosoVenues(input: CreateVirtuosoVenuesInput!): VirtuosoVenues
+  deleteStreamConfigurations(
+    input: DeleteStreamConfigurationsInput!
+  ): StreamConfigurations @aws_api_key
+  deleteVirtuosoActiveServers(
+    input: DeleteVirtuosoActiveServersInput!
+  ): VirtuosoActiveServers @aws_cognito_user_pools @aws_iam @aws_api_key
+  deleteVirtuosoCreators(input: DeleteVirtuosoCreatorsInput!): VirtuosoCreators
+    @aws_api_key
+  deleteVirtuosoEvents(input: DeleteVirtuosoEventsInput!): VirtuosoEvents
+    @aws_api_key
+    @aws_cognito_user_pools
+  deleteVirtuosoSiteMaps(input: DeleteVirtuosoSiteMapsInput!): VirtuosoSiteMaps
+    @aws_api_key
+  deleteVirtuosoStages(input: DeleteVirtuosoStagesInput!): VirtuosoStages
+  deleteVirtuosoUserAttributes(
+    input: DeleteVirtuosoUserAttributesInput!
+  ): VirtuosoUserAttributes
+  deleteVirtuosoVendors(input: DeleteVirtuosoVendorsInput!): VirtuosoVendors
+    @aws_api_key
+  deleteVirtuosoVenues(input: DeleteVirtuosoVenuesInput!): VirtuosoVenues
+    @aws_api_key
+  updateStreamConfigurations(
+    input: UpdateStreamConfigurationsInput!
+  ): StreamConfigurations @aws_api_key @aws_cognito_user_pools
+  updateVirtuosoActiveServers(
+    input: UpdateVirtuosoActiveServersInput!
+  ): VirtuosoActiveServers
+  updateVirtuosoCreators(input: UpdateVirtuosoCreatorsInput!): VirtuosoCreators
+  updateVirtuosoEvents(input: UpdateVirtuosoEventsInput!): VirtuosoEvents
+    @aws_api_key
+    @aws_cognito_user_pools
+  updateVirtuosoSiteMaps(input: UpdateVirtuosoSiteMapsInput!): VirtuosoSiteMaps
+  updateVirtuosoStages(input: UpdateVirtuosoStagesInput!): VirtuosoStages
+  updateVirtuosoUserAttributes(
+    input: UpdateVirtuosoUserAttributesInput!
+  ): VirtuosoUserAttributes
+  updateVirtuosoVendors(input: UpdateVirtuosoVendorsInput!): VirtuosoVendors
+  updateVirtuosoVenues(input: UpdateVirtuosoVenuesInput!): VirtuosoVenues
+  createUserAsset(input: CreateUserAssetInput!): UserAsset
+  updateUserAsset(input: UpdateUserAssetInput!): UserAsset
+  deleteUserAsset(input: DeleteUserAssetInput!): UserAsset @aws_api_key
+  createPost(input: CreatePostInput!): Post
+  updatePost(input: UpdatePostInput!): Post
+  deletePost(input: DeletePostInput!): Post
+  createUser(input: CreateUserInput!): User @aws_api_key
+  updateUser(input: UpdateUserInput!): User @aws_api_key @aws_cognito_user_pools
+  deleteUser(input: DeleteUserInput!): User
+  createComment(input: CreateCommentInput!): Comment
+  updateComment(input: UpdateCommentInput!): Comment
+  deleteComment(input: DeleteCommentInput!): Comment
+  replyOnAComment(input: ReplyOnCommentInput!): Comment
+  createPostLikes(input: CreatePostLikesInput!): PostLikes
+  updatePostLikes(input: UpdatePostLikesInput!): PostLikes
+  deletePostLikes(input: DeletePostLikesInput!): PostLikes
+  createFriendsTable(input: CreateFriendsTableInput!): FriendsTable
+  updateFriendsTable(input: UpdateFriendsTableInput!): FriendsTable
+  deleteFriendsTable(input: DeleteFriendsTableInput!): FriendsTable
+  createNotification(input: CreateNotificationInput!): Notification
+    @aws_api_key
+    @aws_cognito_user_pools
+  updateNotification(input: UpdateNotificationInput!): Notification
+  deleteNotification(input: DeleteNotificationInput!): Notification
+  createFriendRequest(input: CreateFriendRequestInput!): FriendRequest
+  updateFriendRequest(input: UpdateFriendRequestInput!): FriendRequest
+  deleteFriendRequest(input: DeleteFriendRequestInput!): FriendRequest
+  sendFriendRequest(input: SendFriendRequestInput!): Notification
+  createVirtuosoTickets(input: CreateVirtuosoTicketsInput!): VirtuosoTickets
+    @aws_api_key
+    @aws_cognito_user_pools
+  updateVirtuosoTickets(input: UpdateVirtuosoTicketsInput!): VirtuosoTickets
+  deleteVirtuosoTickets(input: DeleteVirtuosoTicketsInput!): VirtuosoTickets
+  createVirtuosoPageFollow(
+    input: CreateVirtuosoPageFollowInput!
+  ): VirtuosoPageFollow
+  deleteVirtuosoPageFollow(
+    input: DeleteVirtuosoPageFollowInput!
+  ): VirtuosoPageFollow
+  createVirtuosoInvitations(
+    input: CreateVirtuosoInvitationsInput!
+  ): VirtuosoInvitations
+  updateVirtuosoInvitations(
+    input: UpdateVirtuosoInvitationsInput!
+  ): VirtuosoInvitations
+  deleteVirtuosoInvitations(
+    input: DeleteVirtuosoInvitationsInput!
+  ): VirtuosoInvitations
+  createVirtuosoAccountRelationships(
+    input: CreateVirtuosoAccountRelationshipsInput!
+  ): VirtuosoAccountRelationships
+  updateVirtuosoAccountRelationships(
+    input: UpdateVirtuosoAccountRelationshipsInput!
+  ): VirtuosoAccountRelationships
+  deleteVirtuosoAccountRelationships(
+    input: DeleteVirtuosoAccountRelationshipsInput!
+  ): VirtuosoAccountRelationships
+  createOwnership(input: CreateOwnershipInput!): Ownership
+  updateOwnership(input: UpdateOwnershipInput!): Ownership
+  deleteOwnership(input: DeleteOwnershipInput!): Ownership
+  createAsset(input: CreateAssetInput!): Asset @aws_api_key
+  updateAsset(input: UpdateAssetInput!): Asset @aws_api_key
+  deleteAsset(input: DeleteAssetInput!): Asset @aws_api_key
+  createVirtuosoAccountStatus(
+    input: CreateVirtuosoAccountStatusInput!
+  ): VirtuosoAccountStatus
+  updateVirtuosoAccountStatus(
+    input: UpdateVirtuosoAccountStatusInput!
+  ): VirtuosoAccountStatus
+  deleteVirtuosoAccountStatus(
+    input: DeleteVirtuosoAccountStatusInput!
+  ): VirtuosoAccountStatus
+  createPayment(input: CreatePaymentInput!): Payment
+    @aws_api_key
+    @aws_cognito_user_pools
+  updatePayment(input: UpdatePaymentInput!): Payment
+    @aws_api_key
+    @aws_cognito_user_pools
+  deletePayment(input: DeletePaymentInput!): Payment
+    @aws_api_key
+    @aws_cognito_user_pools
+  createPromocode(input: CreatePromocodeInput!): Promocode
+  updatePromocode(input: UpdatePromocodeInput!): Promocode
+  deletePromocode(input: DeletePromocodeInput!): Promocode
+  createOrder(input: CreateOrderInput!): Order @aws_api_key
+  updateOrder(input: UpdateOrderInput!): Order @aws_api_key
+  deleteOrder(input: DeleteOrderInput!): Order @aws_api_key
+  createDirectMessage(input: CreateDirectMessageInput!): DirectMessage
+    @aws_api_key
+    @aws_cognito_user_pools
+  updateDirectMessage(input: UpdateDirectMessageInput!): DirectMessage
+    @aws_api_key
+    @aws_cognito_user_pools
+  deleteDirectMessage(input: DeleteDirectMessageInput!): DirectMessage
+    @aws_api_key
+  createChatRooms(input: CreateChatRoomsInput!): ChatRooms
+  updateChatRooms(input: UpdateChatRoomsInput!): ChatRooms
+  deleteChatRooms(input: DeleteChatRoomsInput!): ChatRooms
+  createRecording(input: CreateRecordingInput!): Recording
+  updateRecording(input: UpdateRecordingInput!): Recording
+  deleteRecording(input: DeleteRecordingInput!): Recording
+  createStreamRecording(input: CreateStreamRecordingInput!): StreamRecording
+    @aws_api_key
+    @aws_cognito_user_pools
+  updateStreamRecording(input: UpdateStreamRecordingInput!): StreamRecording
+    @aws_api_key
+    @aws_cognito_user_pools
+  deleteStreamRecording(input: DeleteStreamRecordingInput!): StreamRecording
+  createSupportTicket(input: CreateSupportTicketInput!): SupportTicket
+  updateSupportTicket(input: UpdateSupportTicketInput!): SupportTicket
+  deleteSupportTicket(input: DeleteSupportTicketInput!): SupportTicket
+  createAgent(input: CreateAgentInput!): Agent
+  updateAgent(input: UpdateAgentInput!): Agent
+  deleteAgent(input: DeleteAgentInput!): Agent
+}
+
+type Query {
+  getStreamConfigurations(streamID: String!): StreamConfigurations
+    @aws_cognito_user_pools
+    @aws_api_key
+  getVirtuosoActiveServers(server_id: String!): VirtuosoActiveServers
+  getVirtuosoCreators(CreatorID: String!): VirtuosoCreators
+    @aws_cognito_user_pools
+    @aws_api_key
+  getVirtuosoEvents(EventID: String!): VirtuosoEvents
+    @aws_cognito_user_pools
+    @aws_api_key
+    @aws_iam
+  getVirtuosoSiteMaps(SiteMapID: String!): VirtuosoSiteMaps
+    @aws_cognito_user_pools
+    @aws_api_key
+  getVirtuosoStages(StageID: String!): VirtuosoStages
+  getVirtuosoUserAttributes(CreatorID: String!): VirtuosoUserAttributes
+  getVirtuosoVendors(VendorID: String!): VirtuosoVendors
+    @aws_cognito_user_pools
+    @aws_api_key
+  getVirtuosoVenues(VenueID: String!): VirtuosoVenues
+    @aws_cognito_user_pools
+    @aws_api_key
+  listStreamConfigurations(
+    filter: TableStreamConfigurationsFilterInput
+    limit: Int
+    nextToken: String
+  ): StreamConfigurationsConnection
+  listVirtuosoActiveServers(
+    filter: TableVirtuosoActiveServersFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoActiveServersConnection
+    @aws_cognito_user_pools
+    @aws_iam
+    @aws_api_key
+  listVirtuosoCreators(
+    filter: TableVirtuosoCreatorsFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoCreatorsConnection
+  listVirtuosoEvents(
+    filter: TableVirtuosoEventsFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoEventsConnection @aws_cognito_user_pools @aws_api_key
+  listVirtuosoSiteMaps(
+    filter: TableVirtuosoSiteMapsFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoSiteMapsConnection @aws_cognito_user_pools @aws_api_key
+  listVirtuosoSiteMapsByVenueID(
+    venueId: String!
+    asc: Boolean
+    limit: Int
+    nextToken: String
+  ): VirtuosoSiteMapsConnection @aws_cognito_user_pools @aws_api_key
+  listVirtuosoStages(
+    filter: TableVirtuosoStagesFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoStagesConnection
+  listVirtuosoUserAttributes(
+    filter: TableVirtuosoUserAttributesFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoUserAttributesConnection
+  listVirtuosoVendors(
+    filter: TableVirtuosoVendorsFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoVendorsConnection
+  listVirtuosoVenues(
+    filter: TableVirtuosoVenuesFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoVenuesConnection
+  getUserAsset(id: String!): UserAsset
+  listUserAssets(
+    filter: TableUserAssetFilterInput
+    limit: Int
+    nextToken: String
+  ): UserAssetConnection
+  getPost(pageId: String!, id: ID!): Post
+  getPostById(id: String!): PostConnection @aws_cognito_user_pools @aws_api_key
+  listPostsByAuthor(author: ID!, asc: Boolean): PostConnection
+  listPosts(
+    filter: TablePostFilterInput
+    limit: Int
+    nextToken: String
+  ): PostConnection @aws_cognito_user_pools @aws_api_key @aws_iam
+  getUser(sub: String!): User @aws_cognito_user_pools @aws_api_key @aws_iam
+  listUsers(
+    filter: TableUserFilterInput
+    limit: Int
+    nextToken: String
+  ): UserConnection
+  getComment(postId: String!, id: ID!): Comment
+  listComments(
+    filter: TableCommentFilterInput
+    limit: Int
+    nextToken: String
+  ): CommentConnection
+  listCommentsOnAPost(
+    postId: ID!
+    limit: Int
+    nextToken: String
+    asc: Boolean
+  ): CommentConnection
+  getPostLikes(postId: String!, id: String!): PostLikes
+  listPostLikes(
+    filter: TablePostLikesFilterInput
+    limit: Int
+    nextToken: String
+  ): PostLikesConnection
+  getFriendsTable(userId: String!, friendId: String!): FriendsTable
+  listFriendsTables(
+    filter: TableFriendsTableFilterInput
+    limit: Int
+    nextToken: String
+  ): FriendsTableConnection
+  getNotification(id: ID!): Notification
+  listNotifications(
+    filter: TableNotificationFilterInput
+    limit: Int
+    nextToken: String
+  ): NotificationConnection
+  getFriendRequest(id: ID!): FriendRequest
+  listFriendRequests(
+    filter: TableFriendRequestFilterInput
+    limit: Int
+    nextToken: String
+  ): FriendRequestConnection
+  listUserNotifications(sub: String!): NotificationConnection
+  getVirtuosoTickets(TicketID: ID!): VirtuosoTickets
+  listVirtuosoTickets(
+    filter: TableVirtuosoTicketsFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoTicketsConnection
+  getUserByEmail(email: String!): [User] @aws_iam @aws_api_key
+  getVirtuosoPageFollow(id: ID!): VirtuosoPageFollow
+  listVirtuosoPageFollows(
+    filter: TableVirtuosoPageFollowFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoPageFollowConnection
+  getVirtuosoInvitations(id: String!): VirtuosoInvitations
+  listVirtuosoInvitations(
+    filter: TableVirtuosoInvitationsFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoInvitationsConnection
+  getVirtuosoAccountRelationships(id: String!): VirtuosoAccountRelationships
+  listVirtuosoAccountRelationships(
+    filter: TableVirtuosoAccountRelationshipsFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoAccountRelationshipsConnection
+  getOwnership(sub: ID!): Ownership
+  listOwnerships(
+    filter: TableOwnershipFilterInput
+    limit: Int
+    nextToken: String
+  ): OwnershipConnection
+  getAsset(userId: ID!, assetType: String!): Asset
+  listAssets(
+    filter: TableAssetFilterInput
+    limit: Int
+    nextToken: String
+  ): AssetConnection
+  getVirtuosoAccountStatus(CreatorID: String!): VirtuosoAccountStatus
+  listVirtuosoAccountStatuses(
+    filter: TableVirtuosoAccountStatusFilterInput
+    limit: Int
+    nextToken: String
+  ): VirtuosoAccountStatusConnection
+  getPayment(id: ID!): Payment
+  listPayments(
+    filter: TablePaymentFilterInput
+    limit: Int
+    nextToken: String
+  ): PaymentConnection
+  getPromocode(id: ID!): Promocode
+  listPromocodes(
+    filter: TablePromocodeFilterInput
+    limit: Int
+    nextToken: String
+  ): PromocodeConnection @aws_cognito_user_pools @aws_api_key
+  batchGetUserAssets(ids: [String!]!): [UserAsset]
+    @aws_cognito_user_pools
+    @aws_api_key
+  getOrder(id: ID!): Order
+  listOrders(
+    filter: TableOrderFilterInput
+    limit: Int
+    nextToken: String
+  ): OrderConnection
+  getDirectMessage(id: ID!): DirectMessage
+  listDirectMessages(
+    dmId: String!
+    limit: Int
+    nextToken: String
+  ): DirectMessageConnection
+  getChatRooms(id: ID!): ChatRooms @aws_cognito_user_pools @aws_api_key
+  listChatRooms(
+    filter: TableChatRoomsFilterInput
+    limit: Int
+    nextToken: String
+  ): ChatRoomsConnection @aws_cognito_user_pools @aws_api_key
+  getRecording(id: ID!): Recording
+  listRecordings(
+    filter: TableRecordingFilterInput
+    limit: Int
+    nextToken: String
+  ): RecordingConnection
+  getStreamRecording(id: ID!): StreamRecording
+  listStreamRecordings(
+    filter: TableStreamRecordingFilterInput
+    limit: Int
+    nextToken: String
+  ): StreamRecordingConnection
+  getStreamsByStage(
+    stageId: String
+    eventId: String
+  ): StreamConfigurationsConnection
+  getStreamRecordingsByStage(
+    stageId: String
+    eventId: String
+  ): StreamRecordingConnection
+  getSupportTicket(id: ID!): SupportTicket
+  listSupportTickets(
+    filter: TableSupportTicketFilterInput
+    limit: Int
+    nextToken: String
+  ): SupportTicketConnection
+  getAgent(id: String!): Agent
+  listAgents(
+    filter: TableAgentFilterInput
+    limit: Int
+    nextToken: String
+  ): AgentConnection
+}
+
+type Subscription {
+  onCreateStreamConfigurations(
+    creatorID: String
+    playbackURL: String
+    streamID: String
+    streamKey: String
+    streamName: String
+  ): StreamConfigurations
+    @aws_subscribe(mutations: ["createStreamConfigurations"])
+  onCreateVirtuosoActiveServers(
+    active_viewers: String
+    awsgamesession: String
+    event_id: String
+    ip_address: String
+    server_id: String
+  ): VirtuosoActiveServers
+    @aws_cognito_user_pools
+    @aws_iam
+    @aws_api_key
+    @aws_subscribe(mutations: ["createVirtuosoActiveServers"])
+  onCreateVirtuosoCreators(
+    CreatorBio: String
+    CreatorCategory: String
+    CreatorGuestlistID: String
+    CreatorID: String
+    CreatorLocationID: String
+  ): VirtuosoCreators @aws_subscribe(mutations: ["createVirtuosoCreators"])
+  onCreateVirtuosoEvents(
+    EventCategory: String
+    EventCreatorID: String
+    EventDescription: String
+    EventID: String
+    EventImages: [String]
+  ): VirtuosoEvents @aws_subscribe(mutations: ["createVirtuosoEvents"])
+  onCreateVirtuosoSiteMaps(
+    SiteMapCreatorID: String
+    SiteMapDateCreated: String
+    SiteMapDescription: String
+    SiteMapGuestlistID: String
+    SiteMapID: String
+  ): VirtuosoSiteMaps @aws_subscribe(mutations: ["createVirtuosoSiteMaps"])
+  onCreateVirtuosoStages(
+    StageAuthor: String
+    StageCreatorID: String
+    StageDescription: String
+    StageGuestlistID: String
+    StageID: String
+  ): VirtuosoStages @aws_subscribe(mutations: ["createVirtuosoStages"])
+  onCreateVirtuosoUserAttributes(
+    AccountCreationMethod: String
+    AccountVisibility: String
+    ActualName: String
+    AvatarConfiguration: String
+    CreatorID: String
+  ): VirtuosoUserAttributes
+    @aws_subscribe(mutations: ["createVirtuosoUserAttributes"])
+  onCreateVirtuosoVendors(
+    GuestlistID: String
+    IsRealWorldVendor: String
+    VendorBio: String
+    VendorCreatorID: String
+    VendorID: String
+  ): VirtuosoVendors @aws_subscribe(mutations: ["createVirtuosoVendors"])
+  onCreateVirtuosoVenues(
+    Address: String
+    Android_PAKURL: String
+    Bio: String
+    IsRealWorldVenue: String
+    VenueID: String
+  ): VirtuosoVenues @aws_subscribe(mutations: ["createVirtuosoVenues"])
+  onDeleteStreamConfigurations(
+    creatorID: String
+    playbackURL: String
+    streamID: String
+    streamKey: String
+    streamName: String
+  ): StreamConfigurations
+    @aws_subscribe(mutations: ["deleteStreamConfigurations"])
+  onDeleteVirtuosoActiveServers(
+    active_viewers: String
+    awsgamesession: String
+    event_id: String
+    ip_address: String
+    server_id: String
+  ): VirtuosoActiveServers
+    @aws_subscribe(mutations: ["deleteVirtuosoActiveServers"])
+  onDeleteVirtuosoCreators(
+    CreatorBio: String
+    CreatorCategory: String
+    CreatorGuestlistID: String
+    CreatorID: String
+    CreatorLocationID: String
+  ): VirtuosoCreators @aws_subscribe(mutations: ["deleteVirtuosoCreators"])
+  onDeleteVirtuosoEvents(
+    EventCategory: String
+    EventCreatorID: String
+    EventDescription: String
+    EventID: String
+    EventImages: [String]
+  ): VirtuosoEvents @aws_subscribe(mutations: ["deleteVirtuosoEvents"])
+  onDeleteVirtuosoSiteMaps(
+    SiteMapCreatorID: String
+    SiteMapDateCreated: String
+    SiteMapDescription: String
+    SiteMapGuestlistID: String
+    SiteMapID: String
+  ): VirtuosoSiteMaps @aws_subscribe(mutations: ["deleteVirtuosoSiteMaps"])
+  onDeleteVirtuosoStages(
+    StageAuthor: String
+    StageCreatorID: String
+    StageDescription: String
+    StageGuestlistID: String
+    StageID: String
+  ): VirtuosoStages @aws_subscribe(mutations: ["deleteVirtuosoStages"])
+  onDeleteVirtuosoUserAttributes(
+    AccountCreationMethod: String
+    AccountVisibility: String
+    ActualName: String
+    AvatarConfiguration: String
+    CreatorID: String
+  ): VirtuosoUserAttributes
+    @aws_subscribe(mutations: ["deleteVirtuosoUserAttributes"])
+  onDeleteVirtuosoVendors(
+    GuestlistID: String
+    IsRealWorldVendor: String
+    VendorBio: String
+    VendorCreatorID: String
+    VendorID: String
+  ): VirtuosoVendors @aws_subscribe(mutations: ["deleteVirtuosoVendors"])
+  onDeleteVirtuosoVenues(
+    Address: String
+    Android_PAKURL: String
+    Bio: String
+    IsRealWorldVenue: String
+    VenueID: String
+  ): VirtuosoVenues @aws_subscribe(mutations: ["deleteVirtuosoVenues"])
+  onUpdateStreamConfigurations(
+    creatorID: String
+    playbackURL: String
+    streamID: String
+    streamKey: String
+    streamName: String
+  ): StreamConfigurations
+    @aws_subscribe(mutations: ["updateStreamConfigurations"])
+  onUpdateVirtuosoActiveServers(
+    active_viewers: String
+    awsgamesession: String
+    event_id: String
+    ip_address: String
+    server_id: String
+  ): VirtuosoActiveServers
+    @aws_subscribe(mutations: ["updateVirtuosoActiveServers"])
+  onUpdateVirtuosoCreators(
+    CreatorBio: String
+    CreatorCategory: String
+    CreatorGuestlistID: String
+    CreatorID: String
+    CreatorLocationID: String
+  ): VirtuosoCreators @aws_subscribe(mutations: ["updateVirtuosoCreators"])
+  onUpdateVirtuosoEvents(
+    EventCategory: String
+    EventCreatorID: String
+    EventDescription: String
+    EventID: String
+    EventImages: [String]
+  ): VirtuosoEvents @aws_subscribe(mutations: ["updateVirtuosoEvents"])
+  onUpdateVirtuosoSiteMaps(
+    SiteMapCreatorID: String
+    SiteMapDateCreated: String
+    SiteMapDescription: String
+    SiteMapGuestlistID: String
+    SiteMapID: String
+  ): VirtuosoSiteMaps @aws_subscribe(mutations: ["updateVirtuosoSiteMaps"])
+  onUpdateVirtuosoStages(
+    StageAuthor: String
+    StageCreatorID: String
+    StageDescription: String
+    StageGuestlistID: String
+    StageID: String
+  ): VirtuosoStages @aws_subscribe(mutations: ["updateVirtuosoStages"])
+  onUpdateVirtuosoUserAttributes(
+    AccountCreationMethod: String
+    AccountVisibility: String
+    ActualName: String
+    AvatarConfiguration: String
+    CreatorID: String
+  ): VirtuosoUserAttributes
+    @aws_subscribe(mutations: ["updateVirtuosoUserAttributes"])
+  onUpdateVirtuosoVendors(
+    GuestlistID: String
+    IsRealWorldVendor: String
+    VendorBio: String
+    VendorCreatorID: String
+    VendorID: String
+  ): VirtuosoVendors @aws_subscribe(mutations: ["updateVirtuosoVendors"])
+  onUpdateVirtuosoVenues(
+    Address: String
+    Android_PAKURL: String
+    Bio: String
+    IsRealWorldVenue: String
+    VenueID: String
+  ): VirtuosoVenues @aws_subscribe(mutations: ["updateVirtuosoVenues"])
+  onCreateUserAsset(
+    id: String
+    image: [String]
+    materialsID: [String]
+    quantity: String
+    productName: String
+  ): UserAsset @aws_subscribe(mutations: ["createUserAsset"])
+  onUpdateUserAsset(
+    id: String
+    image: [String]
+    materialsID: [String]
+    quantity: String
+    productName: String
+  ): UserAsset @aws_subscribe(mutations: ["updateUserAsset"])
+  onDeleteUserAsset(
+    id: String
+    image: [String]
+    materialsID: [String]
+    quantity: String
+    productName: String
+  ): UserAsset @aws_subscribe(mutations: ["deleteUserAsset"])
+  onCreatePost(
+    id: ID
+    pageId: ID
+    content: String
+    images: [String]
+    comments: [String]
+  ): Post @aws_subscribe(mutations: ["createPost"])
+  onUpdatePost(
+    id: ID
+    pageId: ID
+    content: String
+    images: [String]
+    comments: [String]
+  ): Post @aws_subscribe(mutations: ["updatePost"])
+  onDeletePost(
+    id: ID
+    pageId: ID
+    content: String
+    images: [String]
+    comments: [String]
+  ): Post @aws_subscribe(mutations: ["deletePost"])
+  onCreateUser(
+    createdAt: String
+    sub: String
+    about: String
+    name: String
+    gender: String
+  ): User @aws_subscribe(mutations: ["createUser"])
+  onUpdateUser(
+    createdAt: String
+    sub: String
+    about: String
+    name: String
+    gender: String
+  ): User @aws_subscribe(mutations: ["updateUser"])
+  onDeleteUser(
+    createdAt: String
+    sub: String
+    about: String
+    name: String
+    gender: String
+  ): User @aws_subscribe(mutations: ["deleteUser"])
+  onCreateComment(
+    postId: String
+    createdAt: String
+    content: String
+    author: String
+    replyIds: [String]
+  ): Comment @aws_subscribe(mutations: ["createComment"])
+  onUpdateComment(
+    postId: String
+    createdAt: String
+    content: String
+    author: String
+    replyIds: [String]
+  ): Comment @aws_subscribe(mutations: ["updateComment"])
+  onDeleteComment(
+    postId: String
+    createdAt: String
+    content: String
+    author: String
+    replyIds: [String]
+  ): Comment @aws_subscribe(mutations: ["deleteComment"])
+  onCreatePostLikes(
+    id: String
+    postId: String
+    author: String
+    createdAt: String
+  ): PostLikes @aws_subscribe(mutations: ["createPostLikes"])
+  onUpdatePostLikes(
+    id: String
+    postId: String
+    author: String
+    createdAt: String
+  ): PostLikes @aws_subscribe(mutations: ["updatePostLikes"])
+  onDeletePostLikes(
+    id: String
+    postId: String
+    author: String
+    createdAt: String
+  ): PostLikes @aws_subscribe(mutations: ["deletePostLikes"])
+  onCreateFriendsTable(
+    friendId: String
+    userId: String
+    createdAt: String
+  ): FriendsTable @aws_subscribe(mutations: ["createFriendsTable"])
+  onUpdateFriendsTable(
+    friendId: String
+    userId: String
+    createdAt: String
+  ): FriendsTable @aws_subscribe(mutations: ["updateFriendsTable"])
+  onDeleteFriendsTable(
+    friendId: String
+    userId: String
+    createdAt: String
+  ): FriendsTable @aws_subscribe(mutations: ["deleteFriendsTable"])
+  onCreateNotification(
+    id: ID
+    content: String
+    receiverId: String
+    senderId: String
+    createdAt: String
+  ): Notification @aws_subscribe(mutations: ["createNotification"])
+  onUpdateNotification(
+    id: ID
+    content: String
+    receiverId: String
+    senderId: String
+    createdAt: String
+  ): Notification @aws_subscribe(mutations: ["updateNotification"])
+  onDeleteNotification(
+    id: ID
+    content: String
+    receiverId: String
+    senderId: String
+    createdAt: String
+  ): Notification @aws_subscribe(mutations: ["deleteNotification"])
+  onCreateFriendRequest(
+    id: ID
+    sender: String
+    receiver: String
+    createdAt: String
+    status: String
+  ): FriendRequest @aws_subscribe(mutations: ["createFriendRequest"])
+  onUpdateFriendRequest(
+    id: ID
+    sender: String
+    receiver: String
+    createdAt: String
+    status: String
+  ): FriendRequest @aws_subscribe(mutations: ["updateFriendRequest"])
+  onDeleteFriendRequest(
+    id: ID
+    sender: String
+    receiver: String
+    createdAt: String
+    status: String
+  ): FriendRequest @aws_subscribe(mutations: ["deleteFriendRequest"])
+  onCreateVirtuosoTickets(
+    TicketID: ID
+    EventID: String
+    ItemID: String
+    NumberOfTicket: Int
+    UserID: String
+  ): VirtuosoTickets @aws_subscribe(mutations: ["createVirtuosoTickets"])
+  onUpdateVirtuosoTickets(
+    TicketID: ID
+    EventID: String
+    ItemID: String
+    NumberOfTicket: Int
+    UserID: String
+  ): VirtuosoTickets @aws_subscribe(mutations: ["updateVirtuosoTickets"])
+  onDeleteVirtuosoTickets(
+    TicketID: ID
+    EventID: String
+    ItemID: String
+    NumberOfTicket: Int
+    UserID: String
+  ): VirtuosoTickets @aws_subscribe(mutations: ["deleteVirtuosoTickets"])
+  onCreateVirtuosoPageFollow(
+    id: ID
+    pageType: String
+    pageId: String
+    userId: String
+  ): VirtuosoPageFollow @aws_subscribe(mutations: ["createVirtuosoPageFollow"])
+  onDeleteVirtuosoPageFollow(
+    id: ID
+    pageType: String
+    pageId: String
+    userId: String
+  ): VirtuosoPageFollow @aws_subscribe(mutations: ["deleteVirtuosoPageFollow"])
+  onCreateVirtuosoInvitations(
+    id: String
+    ActiveServerID: String
+    DateCreated: String
+    EventID: String
+    ToCreatorID: String
+  ): VirtuosoInvitations
+    @aws_subscribe(mutations: ["createVirtuosoInvitations"])
+  onUpdateVirtuosoInvitations(
+    id: String
+    ActiveServerID: String
+    DateCreated: String
+    EventID: String
+    ExpirationLimit: String
+  ): VirtuosoInvitations
+    @aws_subscribe(mutations: ["updateVirtuosoInvitations"])
+  onDeleteVirtuosoInvitations(
+    id: String
+    ActiveServerID: String
+    DateCreated: String
+    EventID: String
+    ExpirationLimit: String
+  ): VirtuosoInvitations
+    @aws_subscribe(mutations: ["deleteVirtuosoInvitations"])
+  onCreateVirtuosoAccountRelationships(
+    id: String
+    DateCreated: String
+    FromCreatorID: String
+    OwnedAssetID: String
+    RelationshipType: String
+  ): VirtuosoAccountRelationships
+    @aws_subscribe(mutations: ["createVirtuosoAccountRelationships"])
+  onUpdateVirtuosoAccountRelationships(
+    id: String
+    DateCreated: String
+    FromCreatorID: String
+    OwnedAssetID: String
+    RelationshipType: String
+  ): VirtuosoAccountRelationships
+    @aws_subscribe(mutations: ["updateVirtuosoAccountRelationships"])
+  onDeleteVirtuosoAccountRelationships(
+    id: String
+    DateCreated: String
+    FromCreatorID: String
+    OwnedAssetID: String
+    RelationshipType: String
+  ): VirtuosoAccountRelationships
+    @aws_subscribe(mutations: ["deleteVirtuosoAccountRelationships"])
+  onCreateOwnership(sub: ID): Ownership
+    @aws_subscribe(mutations: ["createOwnership"])
+  onUpdateOwnership(sub: ID): Ownership
+    @aws_subscribe(mutations: ["updateOwnership"])
+  onDeleteOwnership(sub: ID): Ownership
+    @aws_subscribe(mutations: ["deleteOwnership"])
+  onCreateAsset(userId: ID, assetId: String, assetType: String): Asset
+    @aws_subscribe(mutations: ["createAsset"])
+  onUpdateAsset(userId: ID, assetId: String, assetType: String): Asset
+    @aws_subscribe(mutations: ["updateAsset"])
+  onDeleteAsset(userId: ID, assetId: String, assetType: String): Asset
+    @aws_subscribe(mutations: ["deleteAsset"])
+  onCreateVirtuosoAccountStatus(
+    CreatorID: String
+    AccountVisibility: String
+    ActiveDLCID: String
+    ActivePerformer: String
+    ActivePlatform: String
+  ): VirtuosoAccountStatus
+    @aws_subscribe(mutations: ["createVirtuosoAccountStatus"])
+  onUpdateVirtuosoAccountStatus(
+    CreatorID: String
+    AccountVisibility: String
+    ActiveDLCID: String
+    ActivePerformer: String
+    ActivePlatform: String
+  ): VirtuosoAccountStatus
+    @aws_subscribe(mutations: ["updateVirtuosoAccountStatus"])
+  onDeleteVirtuosoAccountStatus(
+    CreatorID: String
+    AccountVisibility: String
+    ActiveDLCID: String
+    ActivePerformer: String
+    ActivePlatform: String
+  ): VirtuosoAccountStatus
+    @aws_subscribe(mutations: ["deleteVirtuosoAccountStatus"])
+  onCreatePayment(
+    id: ID
+    object: String
+    amount: String
+    amount_capturable: String
+    amount_details: String
+  ): Payment @aws_subscribe(mutations: ["createPayment"])
+  onUpdatePayment(
+    id: ID
+    object: String
+    amount: String
+    amount_capturable: String
+    amount_details: String
+  ): Payment @aws_subscribe(mutations: ["updatePayment"])
+  onDeletePayment(
+    id: ID
+    object: String
+    amount: String
+    amount_capturable: String
+    amount_details: String
+  ): Payment @aws_subscribe(mutations: ["deletePayment"])
+  onCreatePromocode(
+    id: ID
+    active: Boolean
+    code: String
+    created: String
+    appliesTo: [String]
+  ): Promocode @aws_subscribe(mutations: ["createPromocode"])
+  onUpdatePromocode(
+    id: ID
+    active: Boolean
+    code: String
+    created: String
+    appliesTo: [String]
+  ): Promocode @aws_subscribe(mutations: ["updatePromocode"])
+  onDeletePromocode(
+    id: ID
+    active: Boolean
+    code: String
+    created: String
+    appliesTo: [String]
+  ): Promocode @aws_subscribe(mutations: ["deletePromocode"])
+  onCreateOrder(
+    id: ID
+    cart: [String]
+    purchases: [String]
+    buyerID: String
+    paymentIntent: String
+  ): Order @aws_subscribe(mutations: ["createOrder"])
+  onUpdateOrder(
+    id: ID
+    cart: [String]
+    purchases: [String]
+    buyerID: String
+    paymentIntent: String
+  ): Order @aws_subscribe(mutations: ["updateOrder"])
+  onDeleteOrder(
+    id: ID
+    cart: [String]
+    purchases: [String]
+    buyerID: String
+    paymentIntent: String
+  ): Order @aws_subscribe(mutations: ["deleteOrder"])
+  onCreateDirectMessage(
+    id: ID
+    createdAt: String
+    senderId: String
+    receiverId: String
+    content: String
+  ): DirectMessage @aws_subscribe(mutations: ["createDirectMessage"])
+  onUpdateDirectMessage(
+    id: ID
+    createdAt: String
+    senderId: String
+    receiverId: String
+    content: String
+  ): DirectMessage @aws_subscribe(mutations: ["updateDirectMessage"])
+  onDeleteDirectMessage(
+    id: ID
+    createdAt: String
+    senderId: String
+    receiverId: String
+    content: String
+  ): DirectMessage @aws_subscribe(mutations: ["deleteDirectMessage"])
+  onCreateChatRooms(
+    id: ID
+    title: String
+    description: String
+    avatar: String
+    cover: String
+  ): ChatRooms @aws_subscribe(mutations: ["createChatRooms"])
+  onUpdateChatRooms(
+    id: ID
+    title: String
+    description: String
+    avatar: String
+    cover: String
+  ): ChatRooms @aws_subscribe(mutations: ["updateChatRooms"])
+  onDeleteChatRooms(
+    id: ID
+    title: String
+    description: String
+    avatar: String
+    cover: String
+  ): ChatRooms @aws_subscribe(mutations: ["deleteChatRooms"])
+  onCreateRecording(
+    id: ID
+    test: Boolean
+    status: String
+    playback_id: String
+    max_resolution_tier: String
+  ): Recording @aws_subscribe(mutations: ["createRecording"])
+  onUpdateRecording(
+    id: ID
+    test: Boolean
+    status: String
+    playback_id: String
+    max_resolution_tier: String
+  ): Recording @aws_subscribe(mutations: ["updateRecording"])
+  onDeleteRecording(
+    id: ID
+    test: Boolean
+    status: String
+    playback_id: String
+    max_resolution_tier: String
+  ): Recording @aws_subscribe(mutations: ["deleteRecording"])
+  onCreateStreamRecording(
+    id: ID
+    test: Boolean
+    status: String
+    playback_id: String
+    max_resolution_tier: String
+  ): StreamRecording @aws_subscribe(mutations: ["createStreamRecording"])
+  onUpdateStreamRecording(
+    id: ID
+    test: Boolean
+    status: String
+    playback_id: String
+    max_resolution_tier: String
+  ): StreamRecording @aws_subscribe(mutations: ["updateStreamRecording"])
+  onDeleteStreamRecording(
+    id: ID
+    test: Boolean
+    status: String
+    playback_id: String
+    max_resolution_tier: String
+  ): StreamRecording @aws_subscribe(mutations: ["deleteStreamRecording"])
+  onCreateSupportTicket(
+    id: ID
+    title: String
+    description: String
+    status: String
+    createdAt: String
+  ): SupportTicket @aws_subscribe(mutations: ["createSupportTicket"])
+  onUpdateSupportTicket(
+    id: ID
+    title: String
+    description: String
+    status: String
+    createdAt: String
+  ): SupportTicket @aws_subscribe(mutations: ["updateSupportTicket"])
+  onDeleteSupportTicket(
+    id: ID
+    title: String
+    description: String
+    status: String
+    createdAt: String
+  ): SupportTicket @aws_subscribe(mutations: ["deleteSupportTicket"])
+  onCreateAgent(
+    id: String
+    Hostname: String
+    IPAddress: String
+    MACAddress: String
+    BroadcastAddress: String
+  ): Agent @aws_subscribe(mutations: ["createAgent"])
+  onUpdateAgent(
+    id: String
+    Hostname: String
+    IPAddress: String
+    MACAddress: String
+    BroadcastAddress: String
+  ): Agent @aws_subscribe(mutations: ["updateAgent"])
+  onDeleteAgent(
+    id: String
+    Hostname: String
+    IPAddress: String
+    MACAddress: String
+    BroadcastAddress: String
+  ): Agent @aws_subscribe(mutations: ["deleteAgent"])
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}

@@ -1,0 +1,177 @@
+mutation CreatePost(
+  $author: String!
+  $content: String!
+  $images: [String]
+  $pageId: ID!
+) {
+  newPost: createPost(
+    input: {
+      author: $author
+      content: $content
+      images: $images
+      pageId: $pageId
+    }
+  ) {
+    author
+    content
+    id
+    images
+    likesCount
+    pageId
+  }
+}
+
+query getPostById($id: String!, $userId: String!) {
+  posts: getPostById(id: $id) {
+    ...PostDetails
+  }
+}
+
+query listPosts($userId: String!, $nextToken: String, $limit: Int = 5) {
+  posts: listPosts(nextToken: $nextToken, limit: $limit) {
+    ...PostDetails
+  }
+}
+
+query listPostsByAuthor($author: ID!, $userId: String!) {
+  posts: listPostsByAuthor(author: $author) {
+    ...PostDetails
+  }
+}
+
+# like a post
+mutation LikeAPost($author: String!, $postId: String!) {
+  like: createPostLikes(input: { author: $author, postId: $postId }) {
+    id
+  }
+}
+
+# remove like on a post
+mutation removeLikeOnAPost($author: String!, $postId: String!) {
+  deletedLike: deletePostLikes(input: { author: $author, postId: $postId }) {
+    id
+  }
+}
+
+# delete a post
+mutation deleteAPost($id: ID!, $pageId: String!) {
+  deletePost(input: { id: $id, pageId: $pageId }) {
+    id
+  }
+}
+
+# get a post
+query getPost($id: ID!, $userId: String!, $pageId: String!) {
+  post: getPost(id: $id, pageId: $pageId) {
+    author
+    id
+    pageId
+    images
+    content
+    shares
+    isLikedByUser(userId: $userId)
+    commentsCount
+    likesCount
+    topComments {
+      items {
+        authorDetails {
+          name
+          avatar
+          sub
+        }
+        content
+        createdAt
+        id
+        isReply
+        parentId
+        postId
+      }
+    }
+    likes {
+      authorDetails {
+        avatar
+        sub
+        name
+      }
+    }
+    creatorPage {
+      CreatorID
+      CreatorName
+      CreatorImage
+    }
+    venuePage {
+      VenueID
+      VenueName
+      VenueProfileImage
+    }
+    createdAt
+    authorDetails {
+      ...AuthorPostsDetails
+    }
+  }
+}
+
+fragment PostDetails on PostConnection {
+  items {
+    author
+    id
+    pageId
+    images
+    content
+    isLikedByUser(userId: $userId)
+    commentsCount
+    likesCount
+    shares
+    topComments {
+      items {
+        authorDetails {
+          name
+          avatar
+          sub
+        }
+        content
+        createdAt
+        id
+        isReply
+        parentId
+        postId
+      }
+    }
+    likes {
+      authorDetails {
+        avatar
+        sub
+        name
+      }
+    }
+    creatorPage {
+      CreatorID
+      CreatorName
+      CreatorImage
+    }
+    venuePage {
+      VenueID
+      VenueName
+      VenueProfileImage
+    }
+    createdAt
+    authorDetails {
+      ...AuthorPostsDetails
+    }
+  }
+  nextToken
+}
+
+fragment AuthorPostsDetails on User {
+  avatar
+  name
+  sub
+}
+
+mutation updateShares($id: ID!, $pageId: ID!, $shares: Int) {
+  post: updatePost(input: { id: $id, pageId: $pageId, shares: $shares }) {
+    id
+    pageId
+    shares
+  }
+}

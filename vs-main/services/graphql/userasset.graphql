@@ -1,0 +1,216 @@
+query listUserAsset($creatorId: String) {
+  listUserAssets(
+    filter: {
+      isDeleted: { eq: false }
+      accessibility: { eq: "public" }
+      creatorId: { ne: $creatorId }
+    }
+  ) {
+    items {
+      ...UserAssetDataset
+      vendor {
+        VendorID
+        VendorName
+      }
+    }
+  }
+}
+
+query getUserAssetQuery($id: String!, $sub: String) {
+  userasset: getUserAsset(id: $id) {
+    ...UserAssetDataset
+    isOwnedByUser(sub: $sub)
+    vendor {
+      VendorID
+      VendorName
+      VendorImage
+    }
+  }
+}
+
+query listUserAssetByAssetType(
+  $creatorId: String
+  $assetType: String
+  $nextToken: String
+  $limit: Int = 9
+) {
+  listUserAssets(
+    filter: {
+      isDeleted: { eq: false }
+      accessibility: { eq: "public" }
+      creatorId: { ne: $creatorId }
+      assetType: { eq: $assetType }
+    }
+    nextToken: $nextToken
+    limit: $limit
+  ) {
+    items {
+      ...UserAssetDataset
+      isOwnedByUser(sub: $creatorId)
+      vendor {
+        VendorID
+        VendorName
+        VendorImage
+      }
+    }
+    nextToken
+  }
+}
+
+query listUserAssetsForManagement($creatorId: String) {
+  listUserAssets(filter: { creatorId: { eq: $creatorId } }) {
+    items {
+      ...UserAssetDataset
+    }
+  }
+}
+
+mutation publishUserAsset($id: String!, $accessibility: String) {
+  updatedUserAsset: updateUserAsset(
+    input: { id: $id, accessibility: $accessibility }
+  ) {
+    ...UserAssetDataset
+  }
+}
+
+mutation CreateUserAsset(
+  $assetID: String!
+  $creatorId: String
+  $AssetOwnerID: String
+  $description: String
+  $images: [String]
+  $nftURL: String
+  $price: String!
+  $productName: String!
+  $isNFT: Boolean!
+  $assetType: String!
+  $vendorPageId: String
+  $accessibility: String = "private"
+  $Android_PAKURL: String
+  $Linux_PAKURL: String
+  $Mac_PAKURL: String
+  $Windows_PAKURL: String
+  $iOS_PAKURL: String
+  $umapConfig: UmapConfigInput
+  $AssetUMAP_Name: String
+  $Linux_Dedicated_Server_PAKURL: String
+) {
+  newUserAsset: createUserAsset(
+    input: {
+      id: $assetID
+      creatorId: $creatorId
+      AssetOwnerID: $AssetOwnerID
+      description: $description
+      nftURL: $nftURL
+      price: $price
+      productName: $productName
+      isNFT: $isNFT
+      image: $images
+      assetType: $assetType
+      accessibility: $accessibility
+      vendorPageId: $vendorPageId
+      isDeleted: false
+      Mac_PAKURL: $Mac_PAKURL
+      Android_PAKURL: $Android_PAKURL
+      Linux_PAKURL: $Linux_PAKURL
+      Windows_PAKURL: $Windows_PAKURL
+      Linux_Dedicated_Server_PAKURL: $Linux_Dedicated_Server_PAKURL
+      iOS_PAKURL: $iOS_PAKURL
+      umapConfig: $umapConfig
+      AssetUMAP_Name: $AssetUMAP_Name
+    }
+  ) {
+    ...UserAssetDataset
+  }
+}
+
+mutation UpdateUserAsset(
+  $id: String!
+  $creatorId: String
+  $AssetOwnerID: String
+  $description: String
+  $images: [String]
+  $nftURL: String
+  $price: String
+  $productName: String
+  $isNFT: Boolean
+  $assetType: String
+  $vendorPageId: String
+  $accessibility: String
+  $Android_PAKURL: String
+  $Linux_PAKURL: String
+  $Mac_PAKURL: String
+  $Windows_PAKURL: String
+  $iOS_PAKURL: String
+  $umapConfig: UmapConfigInput
+  $AssetUMAP_Name: String
+  $Linux_Dedicated_Server_PAKURL: String
+) {
+  update: updateUserAsset(
+    input: {
+      id: $id
+      creatorId: $creatorId
+      AssetOwnerID: $AssetOwnerID
+      description: $description
+      nftURL: $nftURL
+      price: $price
+      productName: $productName
+      isNFT: $isNFT
+      image: $images
+      assetType: $assetType
+      accessibility: $accessibility
+      vendorPageId: $vendorPageId
+      isDeleted: false
+      Mac_PAKURL: $Mac_PAKURL
+      Android_PAKURL: $Android_PAKURL
+      Linux_PAKURL: $Linux_PAKURL
+      Windows_PAKURL: $Windows_PAKURL
+      Linux_Dedicated_Server_PAKURL: $Linux_Dedicated_Server_PAKURL
+      iOS_PAKURL: $iOS_PAKURL
+      umapConfig: $umapConfig
+      AssetUMAP_Name: $AssetUMAP_Name
+    }
+  ) {
+    ...UserAssetDataset
+  }
+}
+
+mutation deleteUserAsset($id: String!, $userId: String!) {
+  asset: deleteUserAsset(input: { id: $id, userId: $userId }) {
+    id
+    productName
+  }
+}
+
+fragment UserAssetDataset on UserAsset {
+  accessibility
+  creatorId
+  assetType
+  description
+  id
+  image
+  isDeleted
+  isNFT
+  materialsID
+  nftURL
+  price
+  productName
+  quantity
+  rating
+  vendorPageId
+  Android_PAKURL
+  iOS_PAKURL
+  Linux_PAKURL
+  Linux_Dedicated_Server_PAKURL
+  Mac_PAKURL
+  Windows_PAKURL
+  AssetUMAP_Name
+  umapConfig {
+    linux
+    windows
+    mac
+    ios
+    android
+    linux_dedicated
+  }
+}

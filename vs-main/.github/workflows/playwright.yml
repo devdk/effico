@@ -1,0 +1,46 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm install -g yarn && yarn
+
+      - name: Install Playwright Browsers
+        run: yarn playwright install --with-deps
+
+      - name: Create .env.test file
+        run: |
+          echo "NEXT_PUBLIC_AWS_APPSYNC_API_ENDPOINT=${{ secrets.NEXT_PUBLIC_AWS_APPSYNC_API_ENDPOINT }}" >> .env.test
+          echo "APPSYNC_API_KEY=${{ secrets.APPSYNC_API_KEY }}" >> .env.test
+          echo "MUX_TOKEN_ID=${{ secrets.MUX_TOKEN_ID }}" >> .env.test
+          echo "MUX_TOKEN_SECRET=${{ secrets.MUX_TOKEN_SECRET }}" >> .env.test
+          echo "NEXT_PUBLIC_AUTH_HOST=${{ secrets.NEXT_PUBLIC_AUTH_HOST }}" >> .env.test
+          echo "NEXT_PUBLIC_AWS_COGNITO_REGION=${{ secrets.NEXT_PUBLIC_AWS_COGNITO_REGION }}" >> .env.test
+          echo "NEXT_PUBLIC_AWS_USER_POOL_ID=${{ secrets.NEXT_PUBLIC_AWS_USER_POOL_ID }}" >> .env.test
+          echo "NEXT_PUBLIC_AWS_USER_POOL_WEB_CLIENT_ID=${{ secrets.NEXT_PUBLIC_AWS_USER_POOL_WEB_CLIENT_ID }}" >> .env.test
+          echo "NEXT_PUBLIC_LIVESTREAM_HOST=${{ secrets.NEXT_PUBLIC_LIVESTREAM_HOST }}" >> .env.test
+          echo "NEXT_PUBLIC_UPLOAD_HOST=${{ secrets.NEXT_PUBLIC_UPLOAD_HOST }}" >> .env.test
+
+      - name: Run Playwright tests
+        run: yarn playwright test
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

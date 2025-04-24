@@ -1,0 +1,31 @@
+query listUserNotifications($sub: String!) {
+  notifications: listUserNotifications(sub: $sub) {
+    items {
+      content
+      createdAt
+      id
+      read
+      receiverId
+      senderId
+      requestId
+      type
+      postId
+      sender {
+        avatar
+        username
+        sub
+        name
+      }
+    }
+    nextToken
+  }
+}
+
+mutation deleteNotification($id: ID!) {
+  notification: deleteNotification(input: { id: $id }) {
+    id
+    createdAt
+    postId
+    read
+  }
+}
